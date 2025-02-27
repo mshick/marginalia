@@ -1,13 +1,13 @@
-import type { BlockContent, Parent } from 'mdast';
-import type { Transformer } from 'unified';
-import { u } from 'unist-builder';
-import { SKIP, visitParents } from 'unist-util-visit-parents';
+import type { BlockContent, Parent } from "mdast";
+import type { Transformer } from "unified";
+import { u } from "unist-builder";
+import { SKIP, visitParents } from "unist-util-visit-parents";
 import {
   isHeadingNode,
   isMdxjsEsmNode,
   isRootNode,
   isYamlNode,
-} from './type-utils.js';
+} from "./type-utils.js";
 
 const headingDepth = 2;
 
@@ -54,17 +54,17 @@ export default function remarkInitialHeading(
         const startIndex = parent.children.indexOf(start as BlockContent);
 
         const heading = u(
-          'heading',
+          "heading",
           {
             depth: options.headingDepth,
             data: {
               hProperties: {
-                dataInitialHeading: 'true',
-                className: 'hidden',
+                dataInitialHeading: "true",
+                className: "hidden",
               },
             },
           },
-          [u('text', 'Introduction')],
+          [u("text", "Introduction")],
         );
 
         parent.children.splice(startIndex, 0, heading);

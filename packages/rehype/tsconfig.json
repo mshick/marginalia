@@ -1,9 +1,4 @@
 {
-  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node20/tsconfig"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "declaration": true,
-    "pretty": true
-  },
-  "include": ["src"]
+  "extends": ["../../tsconfig"],
+  "include": ["src/**/*.ts"]
 }

@@ -1,12 +1,12 @@
-import type { Parent } from 'mdast';
-import type { Transformer } from 'unified';
-import { u } from 'unist-builder';
-import { visit } from 'unist-util-visit';
+import type { Parent } from "mdast";
+import type { Transformer } from "unified";
+import { u } from "unist-builder";
+import { visit } from "unist-util-visit";
 import {
   isBlockquoteNode,
   isHeadingNode,
   isSectionNode,
-} from './type-utils.js';
+} from "./type-utils.js";
 
 /**
  * Find sections, from remark-sectionize, and then mark blockquotes that
@@ -14,7 +14,7 @@ import {
  */
 export default function remarkEpigraph(): Transformer<Parent> {
   return (tree) => {
-    visit(tree, { type: 'section' }, (node) => {
+    visit(tree, { type: "section" }, (node) => {
       if (!isSectionNode(node)) {
         return;
       }
@@ -43,12 +43,12 @@ export default function remarkEpigraph(): Transformer<Parent> {
         const startIndex = node.children.indexOf(epigraphNodes[0]);
 
         const epigraph = u(
-          'epigraph',
+          "epigraph",
           {
             data: {
-              hName: 'div' as const,
+              hName: "div" as const,
               hProperties: {
-                className: ['epigraph'],
+                className: ["epigraph"],
               },
             },
           },

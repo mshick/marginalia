@@ -104,9 +104,9 @@ contain spaces.
 
 ```js
 function randomCode(bar) {
-  var a = 42;
-  var b = 'Prism';
-  return a + bar(b);
+  var a = 42
+  var b = "Prism"
+  return a + bar(b)
 }
 ```
 
@@ -131,7 +131,7 @@ est. Augue ut lectus arcu bibendum at varius. Ut pharetra sit amet aliquam id
 diam maecenas ultricies.
 
 [^footer]: An inline note in the blockquote footer
-    
+
 ## Tables
 
 Table processing in `remark-gfm`. Enim tortor at auctor urna nunc id cursus.

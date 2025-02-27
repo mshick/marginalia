@@ -1,4 +1,4 @@
-import 'mdast';
+import "mdast";
 import type {
   Epigraph,
   Figcaption,
@@ -11,9 +11,9 @@ import type {
   SidenoteReference,
   SidenoteToggle,
   Video,
-} from './types.js';
+} from "./types.js";
 
-declare module 'mdast' {
+declare module "mdast" {
   interface PhrasingContentMap {
     // newthought: Newthought
     sidenote: Sidenote;

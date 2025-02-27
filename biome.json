@@ -12,7 +12,8 @@
   },
   "formatter": {
     "enabled": true,
-    "indentStyle": "space"
+    "indentStyle": "space",
+    "indentWidth": 2
   },
   "organizeImports": {
     "enabled": true
@@ -31,19 +32,6 @@
         "useAltText": "off",
         "useKeyWithClickEvents": "off"
       }
-    }
-  },
-  "json": {
-    "formatter": {
-      "indentStyle": "space",
-      "indentWidth": 2
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "indentStyle": "space",
-      "quoteStyle": "single",
-      "indentWidth": 2
     }
   }
 }

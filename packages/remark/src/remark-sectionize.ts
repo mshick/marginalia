@@ -1,13 +1,13 @@
-import type { Parent } from 'mdast';
-import type { Transformer } from 'unified';
-import { u } from 'unist-builder';
-import { findAfter } from 'unist-util-find-after';
-import { SKIP, visitParents } from 'unist-util-visit-parents';
+import type { Parent } from "mdast";
+import type { Transformer } from "unified";
+import { u } from "unist-builder";
+import { findAfter } from "unist-util-find-after";
+import { SKIP, visitParents } from "unist-util-visit-parents";
 import {
   isExportNode,
   isHeadingNode,
   isMdxjsFlowElement,
-} from './type-utils.js';
+} from "./type-utils.js";
 
 const minHeadingDepth = 2;
 const maxHeadingDepth = 6;
@@ -66,10 +66,10 @@ export default function remarkSectionize(
           );
 
           const section = u(
-            'section',
+            "section",
             {
               data: {
-                hName: 'section' as const,
+                hName: "section" as const,
               },
             },
             between,

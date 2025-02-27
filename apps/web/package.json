@@ -11,7 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@marginalia/ui": "^0.0.1",
+    "@marginalia/ui": "*",
     "next": "^15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -1,8 +1,8 @@
-import { type Properties, h } from 'hastscript';
-import type { BlockContent, DefinitionContent, Parent } from 'mdast';
-import type { Transformer } from 'unified';
-import { u } from 'unist-builder';
-import { SKIP, visit } from 'unist-util-visit';
+import { type Properties, h } from "hastscript";
+import type { BlockContent, DefinitionContent, Parent } from "mdast";
+import type { Transformer } from "unified";
+import { u } from "unist-builder";
+import { SKIP, visit } from "unist-util-visit";
 import {
   isCodeNode,
   isContainerDirectiveNode,
@@ -10,9 +10,9 @@ import {
   isLeafDirectiveNode,
   isParentNode,
   isVideoNode,
-} from './type-utils.js';
-import type { HastData } from './types.js';
-import { contentTypePresenceReducer } from './utils.js';
+} from "./type-utils.js";
+import type { HastData } from "./types.js";
+import { contentTypePresenceReducer } from "./utils.js";
 
 type GroupedChildren = Record<number, Array<BlockContent | DefinitionContent>>;
 
@@ -20,7 +20,7 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
   return (tree) => {
     visit(
       tree,
-      (node) => isContainerDirectiveNode(node) && node.name === 'figure',
+      (node) => isContainerDirectiveNode(node) && node.name === "figure",
       (node, index, parent) => {
         if (!isContainerDirectiveNode(node) || !isParentNode(parent)) {
           return [SKIP, index];
@@ -59,10 +59,10 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
             groupedCaptions,
           )) {
             const figcaption = u(
-              'figcaption',
+              "figcaption",
               {
                 data: {
-                  hName: 'figcaption' as const,
+                  hName: "figcaption" as const,
                 },
               },
               captionNodes,
@@ -99,10 +99,10 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
         }
 
         const figure = u(
-          'figure',
+          "figure",
           {
             data: {
-              hName: 'figure' as const,
+              hName: "figure" as const,
               hProperties: {
                 ...hast.properties,
                 className: [...className, ...Object.keys(contentTypesPresent)],

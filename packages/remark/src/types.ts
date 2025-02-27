@@ -1,18 +1,18 @@
-import type { Properties } from 'hast';
+import type { Properties } from "hast";
 import type {
   BlockContent,
   DefinitionContent,
   Parent,
   PhrasingContent,
-} from 'mdast';
-import type { TextDirective } from 'mdast-util-directive';
-import type { Node } from 'unist';
+} from "mdast";
+import type { TextDirective } from "mdast-util-directive";
+import type { Node } from "unist";
 
 /**
  * Type related to mdx exports, can't find typings...
  */
 export type Export = {
-  type: 'export';
+  type: "export";
 } & Node;
 
 export type HastData = {
@@ -21,95 +21,95 @@ export type HastData = {
 };
 
 export type Footnote = {
-  type: 'footnote';
+  type: "footnote";
   children: PhrasingContent[];
 } & Parent;
 
 export type Newthought = TextDirective & {
-  name: 'newthought';
+  name: "newthought";
 };
 
 export type SidenoteToggle = {
-  type: 'sidenoteToggle';
+  type: "sidenoteToggle";
   data: {
-    hName: 'input';
+    hName: "input";
     hProperties: Properties;
   };
 };
 
 export type SidenoteReference = {
-  type: 'sidenoteReference';
+  type: "sidenoteReference";
   children: Array<PhrasingContent>;
   data: {
-    hName: 'label';
+    hName: "label";
     hProperties: Properties;
   };
 } & Parent;
 
 export type SidenoteDefinition = {
-  type: 'sidenoteDefinition';
+  type: "sidenoteDefinition";
   children: Array<BlockContent | DefinitionContent | PhrasingContent>;
   data: {
-    hName: 'span';
+    hName: "span";
     hProperties: Properties;
   };
 } & Parent;
 
 export type Sidenote = {
-  type: 'sidenote';
+  type: "sidenote";
   children: Array<SidenoteReference | SidenoteDefinition | SidenoteToggle>;
   data: {
-    hName: 'span';
+    hName: "span";
     hProperties: Properties;
   };
 } & Parent;
 
 export type Iframe = {
-  type: 'iframe';
+  type: "iframe";
   data: {
-    hName: 'iframe';
+    hName: "iframe";
     hProperties: Properties;
   };
   children: Array<BlockContent | PhrasingContent>;
 };
 
 export type Video = {
-  type: 'video';
+  type: "video";
   data: {
-    hName: 'div';
+    hName: "div";
     hProperties: Properties;
   };
   children: Array<BlockContent>;
 };
 
 export type Figure = {
-  type: 'figure';
+  type: "figure";
   children: Array<BlockContent | DefinitionContent>;
   data: {
-    hName: 'figure';
+    hName: "figure";
     hProperties?: Properties;
   };
 };
 
 export type Figcaption = {
-  type: 'figcaption';
+  type: "figcaption";
   children: Array<PhrasingContent | BlockContent | DefinitionContent>;
   data: {
-    hName: 'figcaption';
+    hName: "figcaption";
   };
 };
 
 export type Section = {
-  type: 'section';
+  type: "section";
   data: {
-    hName: 'section';
+    hName: "section";
   };
 } & Parent;
 
 export type Epigraph = {
-  type: 'epigraph';
+  type: "epigraph";
   data: {
-    hName: 'div';
+    hName: "div";
     hProperties: Properties;
   };
 } & Parent;

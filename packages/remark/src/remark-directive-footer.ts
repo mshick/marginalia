@@ -1,13 +1,13 @@
-import { type Properties, h } from 'hastscript';
-import type { Parent } from 'mdast';
-import type { Transformer } from 'unified';
-import { EXIT, SKIP, visit } from 'unist-util-visit';
-import { isContainerDirectiveNode, isLeafDirectiveNode } from './type-utils.js';
-import type { HastData } from './types.js';
+import { type Properties, h } from "hastscript";
+import type { Parent } from "mdast";
+import type { Transformer } from "unified";
+import { EXIT, SKIP, visit } from "unist-util-visit";
+import { isContainerDirectiveNode, isLeafDirectiveNode } from "./type-utils.js";
+import type { HastData } from "./types.js";
 
 export default function remarkFooter(): Transformer<Parent> {
   return (tree) => {
-    visit(tree, { name: 'footer' }, (node, index) => {
+    visit(tree, { name: "footer" }, (node, index) => {
       if (!isContainerDirectiveNode(node) && !isLeafDirectiveNode(node)) {
         return [SKIP, index];
       }

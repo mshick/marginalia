@@ -1,10 +1,10 @@
-import type { BlockContent, DefinitionContent } from 'mdast';
+import type { BlockContent, DefinitionContent } from "mdast";
 import {
   isCodeNode,
   isImageNode,
   isLeafDirectiveNode,
   isVideoNode,
-} from './type-utils.js';
+} from "./type-utils.js";
 
 export function contentTypePresenceReducer(
   p: Record<string, boolean>,
