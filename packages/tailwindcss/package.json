@@ -1,0 +1,31 @@
+{
+  "name": "@marginalia/tailwindcss",
+  "version": "0.0.1",
+  "keywords": ["react", "nodejs", "nextjs", "tufte", "remark"],
+  "type": "module",
+  "main": "src/index.ts",
+  "files": ["dist", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsup --dts",
+    "clean": "del-cli dist .turbo",
+    "lint": "biome check",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "tailwindcss": "^4.0.9"
+  },
+  "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": "^20.0.0 || ^22.0.0",
+    "npm": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "tsup": {
+    "clean": true,
+    "target": "es2022",
+    "entry": ["src/index.ts"],
+    "format": ["esm"]
+  }
+}

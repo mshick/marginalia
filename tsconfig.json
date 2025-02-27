@@ -4,5 +4,5 @@
     "noPropertyAccessFromIndexSignature": false,
     "exactOptionalPropertyTypes": false
   },
-  "include": ["*.mts"]
+  "include": ["*.mts", "**/*.ts"]
 }

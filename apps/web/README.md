@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+## Notes
 
-## Getting Started
+- Handling relationships in Velite - https://github.com/zce/velite/issues/134
+- Apple Music played tracks:
+  https://developer.apple.com/documentation/applemusicapi/get_recently_played_tracks
+- Design inspiration: https://datatracker.ietf.org/doc/html/rfc6570
+- Code inspiration: https://leerob.io/blog
+- Index of sites linked to: https://blog.jim-nielsen.com/about/
+- Tufte CSS:
+  https://github.com/luhmann/tufte-markdown/blob/master/examples/md/tufte.md
+- https://edwardtufte.github.io/tufte-css/
+- https://nulliq.dev/posts/vector-angle-1/
+- https://github.com/panr/hugo-theme-terminal
+- https://j3s.sh
+- BBS design
 
-First, run the development server:
+## Process for MusicKit MUT updates
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Set up authenticated music endpoint, `renew-token`. Create secret stored in
+   Vercel env.
+2. Set up GitHub repo with a secret, same as in vercel env.
+3. Set up a GitHub Actions workflow to run periodically and:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   1. Hit the `renew-token` endpoint, using secret
+   2. Get response with the new token, ensure it isn't shown in the action logs
+   3. Using the vercel cli, (needs `.vercel` config to link the repo) update the
+      `MUSICKIT_MUSIC_USER_TOKEN` env var.
+   4. Trigger a new deployment.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Now Playing feature
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Every X minutes, request /now-playing
+2. /now-playing checks redis for the most recent item
+3. If there is an item, check the created time and the duration, if we're in the
+   window return that item as the current item
+4. If we did not return, get the latest from Apple, store to redis, return

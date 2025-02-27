@@ -2,14 +2,21 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": ["../../tsconfig", "@tsconfig/next/tsconfig"],
   "compilerOptions": {
-    "incremental": true
+    "checkJs": false,
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "#/*": ["./src/*"]
+    }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    "next.config.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "velite.config.ts",
+    ".velite"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".github", "public"]
 }
