@@ -1,0 +1,52 @@
+{
+  "name": "@marginalia/remark",
+  "version": "0.0.1",
+  "keywords": ["react", "nodejs", "nextjs", "tufte", "remark"],
+  "type": "module",
+  "main": "src/index.ts",
+  "files": ["dist", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsup --dts",
+    "clean": "del-cli dist .turbo",
+    "lint": "biome check",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "remark-directive": "^3.0.1",
+    "remark-directive-rehype": "^0.4.2",
+    "remark-gfm": "^4.0.1",
+    "remark-squeeze-paragraphs": "^6.0.0",
+    "remark-unwrap-images": "^4.0.1",
+    "unified": "^11.0.5",
+    "unist-builder": "^4.0.0",
+    "unist-util-find-after": "^5.0.0",
+    "unist-util-remove": "^4.0.0",
+    "unist-util-select": "^5.1.0",
+    "unist-util-visit": "^5.0.0",
+    "unist-util-visit-parents": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.4",
+    "@types/unist": "^3.0.3",
+    "hastscript": "^9.0.1",
+    "mdast-util-directive": "^3.1.0",
+    "mdast-util-mdx-jsx": "^3.2.0",
+    "mdast-util-mdxjs-esm": "^2.0.1",
+    "remark-mdx": "^3.1.0"
+  },
+  "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": "^20.0.0 || ^22.0.0",
+    "npm": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "tsup": {
+    "clean": true,
+    "target": "es2022",
+    "entry": ["src/index.ts"],
+    "format": ["esm"]
+  }
+}

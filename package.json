@@ -5,20 +5,27 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "npm run format:code && npm run format:md",
+    "format:code": "biome check --fix",
+    "format:md": "prettier --write \"**/*.{md,mdx}\"",
+    "test": "vitest run",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
-    "prettier": "^3.5.0",
+    "@biomejs/biome": "^1.9.4",
+    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^22.13.5",
+    "prettier": "^3.5.2",
+    "del-cli": "^6.0.0",
     "turbo": "^2.4.4",
-    "typescript": "5.7.3"
+    "tsup": "^8.4.0",
+    "typescript": "5.7.3",
+    "vitest": "^3.0.7"
   },
   "engines": {
     "node": ">=18"
   },
   "packageManager": "npm@10.8.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "workspaces": ["apps/*", "packages/*"]
 }
