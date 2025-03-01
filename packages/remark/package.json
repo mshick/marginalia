@@ -3,11 +3,19 @@
   "version": "0.0.1",
   "keywords": ["react", "nodejs", "nextjs", "tufte", "remark"],
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "main": "src/index.ts",
   "files": ["dist", "LICENSE", "README.md"],
   "scripts": {
     "build": "tsup --dts",
+    "build:fast": "tsup src",
     "clean": "del-cli dist .turbo",
+    "dev": "pnpm build:fast --watch",
     "lint": "biome check",
     "check-types": "tsc --noEmit"
   },
@@ -27,18 +35,19 @@
   },
   "devDependencies": {
     "@types/hast": "^3.0.4",
+    "@types/js-beautify": "^1.14.3",
     "@types/mdast": "^4.0.4",
     "@types/unist": "^3.0.3",
     "hastscript": "^9.0.1",
     "mdast-util-directive": "^3.1.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "mdast-util-mdxjs-esm": "^2.0.1",
-    "remark-mdx": "^3.1.0"
-  },
-  "packageManager": "npm@10.8.2",
-  "engines": {
-    "node": "^20.0.0 || ^22.0.0",
-    "npm": ">=10"
+    "js-beautify": "^1.15.3",
+    "rehype-stringify": "^10.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-mdx": "^3.1.0",
+    "remark-rehype": "^11.1.1",
+    "to-vfile": "^8.0.0"
   },
   "publishConfig": {
     "access": "public"

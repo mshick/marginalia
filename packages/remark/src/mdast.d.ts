@@ -1,4 +1,3 @@
-import "mdast";
 import type {
   Epigraph,
   Figcaption,

@@ -3,21 +3,24 @@
   "version": "0.0.1",
   "keywords": ["react", "nodejs", "nextjs", "tufte", "remark"],
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "main": "src/index.ts",
   "files": ["dist", "LICENSE", "README.md"],
   "scripts": {
     "build": "tsup --dts",
+    "build:fast": "tsup src",
     "clean": "del-cli dist .turbo",
+    "dev": "pnpm build:fast --watch",
     "lint": "biome check",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "tailwindcss": "^4.0.9"
-  },
-  "packageManager": "npm@10.8.2",
-  "engines": {
-    "node": "^20.0.0 || ^22.0.0",
-    "npm": ">=10"
   },
   "publishConfig": {
     "access": "public"
