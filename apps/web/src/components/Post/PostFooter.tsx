@@ -13,7 +13,7 @@ export type PostFooterProps = Pick<
 function PostFooterMeta({
   updatedAt,
   historyUrl,
-  tags,
+  tags
 }: Pick<PostFooterProps, 'updatedAt' | 'historyUrl' | 'tags'>) {
   return (
     <div className="flex flex-col items-start sm:items-center sm:flex-row-reverse justify-between gap-8 sm:gap-4">

@@ -33,7 +33,7 @@ export const image = (options: ImageOptions = {}) =>
           base: output.base,
           publicRootPath: options.publicRootPath ?? publicRootPath,
           allowRemoteUrl: allowRemoteUrl ?? false,
-          isImage: true,
+          isImage: true
         });
 
         if (typeof asset === 'string') {

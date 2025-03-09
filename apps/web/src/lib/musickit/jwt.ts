@@ -10,7 +10,7 @@ type SignJwtOptions = {
 async function signJwt(
   payload: jose.JWTPayload,
   key: string,
-  options: SignJwtOptions,
+  options: SignJwtOptions
 ): Promise<string> {
   const ecPrivateKey = await jose.importPKCS8(key, options.algorithm);
   return await new jose.SignJWT(payload)
@@ -28,7 +28,7 @@ export type DeveloperKeyCredentials = {
 };
 
 export async function createDeveloperKey(
-  credentials: DeveloperKeyCredentials,
+  credentials: DeveloperKeyCredentials
 ): Promise<string> {
   if (!credentials?.privateKey || !credentials?.teamId || !credentials?.keyId) {
     throw new Error('Invalid credentials');
@@ -40,7 +40,7 @@ export async function createDeveloperKey(
     issuer: credentials.teamId,
     header: {
       alg: 'ES256',
-      kid: credentials.keyId,
-    },
+      kid: credentials.keyId
+    }
   });
 }

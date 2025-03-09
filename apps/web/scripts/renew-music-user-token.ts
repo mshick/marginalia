@@ -59,7 +59,7 @@ function getArgs(argv: string[]) {
 
 function getMusicUserToken({
   bearerToken,
-  baseUrl,
+  baseUrl
 }: {
   bearerToken: string;
   baseUrl: string;
@@ -68,8 +68,8 @@ function getMusicUserToken({
     const url = new URL('/api/music/renew-token/', baseUrl);
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
+        Authorization: `Bearer ${bearerToken}`
+      }
     });
 
     if (!response.ok) {
@@ -92,7 +92,7 @@ type EnvVar = {
 function getEnvVarByKey({
   bearerToken,
   baseUrl,
-  projectName,
+  projectName
 }: {
   bearerToken: string;
   baseUrl: string;
@@ -102,8 +102,8 @@ function getEnvVarByKey({
     const envVarsUrl = new URL(`/v9/projects/${projectName}/env`, baseUrl);
     const envVarsResponse = await fetch(envVarsUrl, {
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
+        Authorization: `Bearer ${bearerToken}`
+      }
     });
 
     const envVarsResult: {
@@ -122,12 +122,12 @@ function getEnvVarByKey({
 
     const secretUrl = new URL(
       `/v1/projects/${projectName}/env/${envVar.id}`,
-      baseUrl,
+      baseUrl
     );
     const secretResponse = await fetch(secretUrl, {
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
+        Authorization: `Bearer ${bearerToken}`
+      }
     });
 
     const secretResult: EnvVar = await secretResponse.json();
@@ -143,7 +143,7 @@ function getEnvVarByKey({
 function updateEnvVar({
   bearerToken,
   baseUrl,
-  projectName,
+  projectName
 }: {
   bearerToken: string;
   baseUrl: string;
@@ -154,11 +154,11 @@ function updateEnvVar({
     const response = await fetch(url, {
       method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${bearerToken}`
       },
       body: JSON.stringify({
-        value,
-      }),
+        value
+      })
     });
 
     return response.json();
@@ -167,7 +167,7 @@ function updateEnvVar({
 
 function getLatestDeployment({
   bearerToken,
-  baseUrl,
+  baseUrl
 }: {
   bearerToken: string;
   baseUrl: string;
@@ -176,8 +176,8 @@ function getLatestDeployment({
     const url = new URL(`/v6/deployments?target=${target}&limit=1`, baseUrl);
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
+        Authorization: `Bearer ${bearerToken}`
+      }
     });
 
     const result = await response.json();
@@ -200,7 +200,7 @@ type DeploymentParams = {
 
 function reploy({
   bearerToken,
-  baseUrl,
+  baseUrl
 }: {
   bearerToken: string;
   baseUrl: string;
@@ -217,16 +217,16 @@ function reploy({
         org: meta.githubOrg,
         repo: meta.githubRepo,
         ref: meta.githubCommitRef,
-        sha: meta.githubCommitSha,
-      },
+        sha: meta.githubCommitSha
+      }
     };
 
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${bearerToken}`
       },
-      body: JSON.stringify(newDeployment),
+      body: JSON.stringify(newDeployment)
     });
 
     return await response.json();
@@ -238,7 +238,7 @@ function getRequests({
   siteToken,
   siteUrl,
   vercelToken,
-  vercelUrl,
+  vercelUrl
 }: {
   projectName: string;
   siteToken: string;
@@ -249,26 +249,26 @@ function getRequests({
   return {
     getMusicUserToken: getMusicUserToken({
       bearerToken: siteToken,
-      baseUrl: siteUrl,
+      baseUrl: siteUrl
     }),
     getEnvVarByKey: getEnvVarByKey({
       bearerToken: vercelToken,
       baseUrl: vercelUrl,
-      projectName,
+      projectName
     }),
     updateEnvVar: updateEnvVar({
       bearerToken: vercelToken,
       baseUrl: vercelUrl,
-      projectName,
+      projectName
     }),
     getLatestDeployment: getLatestDeployment({
       bearerToken: vercelToken,
-      baseUrl: vercelUrl,
+      baseUrl: vercelUrl
     }),
     reploy: reploy({
       bearerToken: vercelToken,
-      baseUrl: vercelUrl,
-    }),
+      baseUrl: vercelUrl
+    })
   };
 }
 
@@ -283,7 +283,7 @@ async function main() {
 
   if (!siteUrl || !siteToken || !vercelToken || !projectName) {
     throw new Error(
-      'Missing variables: site-url, site-token and vercel-token are all required.',
+      'Missing variables: site-url, site-token and vercel-token are all required.'
     );
   }
 
@@ -297,7 +297,7 @@ async function main() {
     siteUrl,
     siteToken,
     vercelToken,
-    vercelUrl: vercelApiBase,
+    vercelUrl: vercelApiBase
   });
 
   const musicUserToken = await requests.getMusicUserToken();
@@ -322,16 +322,16 @@ async function main() {
 
   await requests.updateEnvVar({
     id: envVar.id,
-    value: musicUserToken,
+    value: musicUserToken
   });
 
   const deployment = await requests.getLatestDeployment({
-    target,
+    target
   });
 
   const deploymentResult = await requests.reploy({
     deployment,
-    target,
+    target
   });
 
   if (debug) {
@@ -339,7 +339,7 @@ async function main() {
   }
 
   console.log(
-    `Deployment is ${deploymentResult.status} on target ${deploymentResult.target}`,
+    `Deployment is ${deploymentResult.status} on target ${deploymentResult.target}`
   );
 }
 
@@ -350,5 +350,5 @@ main().then(
   (e) => {
     console.error(e);
     process.exit(1);
-  },
+  }
 );

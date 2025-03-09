@@ -10,7 +10,7 @@ import {
   getDocumentsCount,
   getOptions,
   getTag,
-  sorters,
+  sorters
 } from '#/content';
 import { getPagination } from '#/lib/utils/pagination';
 import type { ServerProps } from '#/types/types';
@@ -22,7 +22,7 @@ type Params = {
 };
 
 export async function generateMetadata(
-  props: ServerProps<Params>,
+  props: ServerProps<Params>
 ): Promise<Metadata> {
   const params = await props.params;
   const searchParams = await props.searchParams;
@@ -31,7 +31,7 @@ export async function generateMetadata(
 
   if (!tag) {
     return {
-      title: `#${params.slug}`,
+      title: `#${params.slug}`
     };
   }
 
@@ -41,7 +41,7 @@ export async function generateMetadata(
     searchParams,
     getOptions(['collections']).collections?.find((c) => c.name === 'tag')
       ?.pagination ?? { per_page: 3 },
-    getDocumentsCount(),
+    getDocumentsCount()
   );
 
   if (currentPage > 1) {
@@ -50,7 +50,7 @@ export async function generateMetadata(
 
   return {
     title,
-    description: tag.excerpt,
+    description: tag.excerpt
   };
 }
 
@@ -70,7 +70,7 @@ export default async function TagPage(props: ServerProps<Params>) {
     searchParams,
     getOptions(['collections']).collections?.find((c) => c.name === 'tag')
       ?.pagination ?? { per_page: 3 },
-    getDocumentsCount(filters.none),
+    getDocumentsCount(filters.none)
   );
 
   const documents = getDocuments(
@@ -79,7 +79,7 @@ export default async function TagPage(props: ServerProps<Params>) {
     (item) => item.tags?.includes(tag.name) ?? false,
     sorters.publishedAtDesc,
     perPage,
-    pageOffset,
+    pageOffset
   );
 
   return (

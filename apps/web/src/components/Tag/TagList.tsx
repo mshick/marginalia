@@ -9,7 +9,7 @@ export type TagListProps<ListItem> = {
 
 export function TagList<ListItem extends TagListItem = TagListItem>({
   tags,
-  children,
+  children
 }: PropsWithCallableChildren<TagListProps<ListItem>, ListItem>) {
   return (
     <ul className="flex flex-col m-0 p-0 list-none">

@@ -23,7 +23,7 @@ export function MobileMenu({ items }: MobileMenuProps) {
               href={item.path}
               className={classNames(
                 item.current ? `before:content-[">/"] -ml-[11px]` : '',
-                'before:content-["/"] after:content-["/"] block no-underline before:p-0 after:p-0 hover:bg-blue-700 hover:text-white',
+                'before:content-["/"] after:content-["/"] block no-underline before:p-0 after:p-0 hover:bg-blue-700 hover:text-white'
               )}
             >
               {item.text}

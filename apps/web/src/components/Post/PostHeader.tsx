@@ -14,7 +14,7 @@ export function PostHeader({ publishedAt, metadata, title }: PostHeaderProps) {
     <header id="post-header" className="space-y-3">
       <Link
         href={{
-          pathname: '/posts/',
+          pathname: '/posts/'
         }}
         className="group flex flex-row gap-1 whitespace-nowrap text-xs mt-4"
       >

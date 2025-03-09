@@ -6,7 +6,7 @@ import {
   IMAGE_WIDGET,
   MARKDOWN_WIDGET,
   RELATION_WIDGET,
-  VELITE_FIELDS,
+  VELITE_FIELDS
 } from './constants';
 import type {
   CmsCollection,
@@ -21,7 +21,7 @@ import type {
   CmsFieldObject,
   CmsFieldRelation,
   CmsFieldSelect,
-  CmsFieldStringOrText,
+  CmsFieldStringOrText
 } from './types';
 import { safeParseJsonString } from './util';
 
@@ -34,7 +34,7 @@ type FieldAcc = Pick<
 
 export function getSchemaBaseType(
   schema: z.ZodSchema<any>,
-  acc: { required?: boolean; default?: unknown },
+  acc: { required?: boolean; default?: unknown }
 ) {
   if (schema instanceof z.ZodEffects) {
     return getSchemaBaseType(schema.sourceType(), acc);
@@ -81,10 +81,10 @@ export const cmsField = z
         'map',
         'number',
         'select',
-        'hidden',
+        'hidden'
       ])
       .optional(),
-    name: z.string().optional(),
+    name: z.string().optional()
   })
   .passthrough();
 
@@ -105,14 +105,14 @@ function getFieldCustom(description: string): Partial<CmsField> | undefined {
 export function schemaToFields(
   schema: z.ZodObject<any>,
   collection: Pick<CmsCollection, 'name' | 'identifier_field'>,
-  collections: Pick<CmsCollection, 'name' | 'identifier_field'>[],
+  collections: Pick<CmsCollection, 'name' | 'identifier_field'>[]
 ) {
   const fields: CmsField[] = [];
 
   for (const shapeName in schema.shape) {
     const fieldBase: FieldAcc = {
       name: shapeName,
-      required: true,
+      required: true
     };
 
     const shapeField = schema.shape[shapeName];
@@ -126,7 +126,7 @@ export function schemaToFields(
         default:
           typeof fieldBase.default === 'string' ? fieldBase.default : undefined,
         ...fieldCustom,
-        widget: fieldCustom.widget,
+        widget: fieldCustom.widget
       };
       fields.push(field);
       continue;
@@ -138,7 +138,7 @@ export function schemaToFields(
         default:
           typeof fieldBase.default === 'string' ? fieldBase.default : undefined,
         ...fieldCustom,
-        widget: fieldCustom.widget,
+        widget: fieldCustom.widget
       };
       fields.push(field);
       continue;
@@ -150,7 +150,7 @@ export function schemaToFields(
         default:
           typeof fieldBase.default === 'string' ? fieldBase.default : undefined,
         ...fieldCustom,
-        widget: fieldCustom.widget,
+        widget: fieldCustom.widget
       };
       fields.push(field);
       continue;
@@ -166,7 +166,7 @@ export function schemaToFields(
       const collectionName =
         (fieldCustom as CmsFieldRelation)?.collection ?? collection.name;
       const relationCollection = collections.find(
-        (c) => c.name === collectionName,
+        (c) => c.name === collectionName
       );
 
       if (!relationCollection) {
@@ -182,11 +182,11 @@ export function schemaToFields(
         display_fields: [
           relationCollection.identifier_field
             ? relationCollection.identifier_field
-            : 'title',
+            : 'title'
         ],
         dropdown_threshold: 0,
         ...fieldCustom,
-        widget: fieldCustom.widget,
+        widget: fieldCustom.widget
       };
 
       fields.push(field);
@@ -202,7 +202,7 @@ export function schemaToFields(
         max: shapeField._def.maxLength?.value ?? undefined,
         min: shapeField._def.minLength?.value ?? undefined,
         ...fieldCustom,
-        widget: 'list',
+        widget: 'list'
       };
 
       const arrayBaseType = getSchemaBaseType(shapeBaseType.element, {});
@@ -219,7 +219,7 @@ export function schemaToFields(
       const objectFields = schemaToFields(
         shapeBaseType,
         collection,
-        collections,
+        collections
       );
       const fieldDefault =
         fieldBase.default ?? (fieldCustom as CmsFieldStringOrText)?.default;
@@ -231,7 +231,7 @@ export function schemaToFields(
           collapsed: true,
           ...fieldCustom,
           default: typeof fieldDefault === 'string' ? fieldDefault : undefined,
-          widget: 'object',
+          widget: 'object'
         };
         fields.push(field);
       } else {
@@ -239,7 +239,7 @@ export function schemaToFields(
           ...fieldBase,
           ...fieldCustom,
           default: typeof fieldDefault === 'string' ? fieldDefault : undefined,
-          widget: 'string',
+          widget: 'string'
         };
         fields.push(field);
       }
@@ -260,7 +260,7 @@ export function schemaToFields(
           typeof fieldDefault === 'string' || typeof fieldDefault === 'number'
             ? fieldDefault
             : undefined,
-        widget: 'number',
+        widget: 'number'
       };
       fields.push(field);
       continue;
@@ -276,7 +276,7 @@ export function schemaToFields(
         ...fieldBase,
         ...fieldCustom,
         default: typeof fieldDefault === 'string' ? fieldDefault : undefined,
-        widget: maxValue > 120 ? 'text' : 'string',
+        widget: maxValue > 120 ? 'text' : 'string'
       };
       fields.push(field);
       continue;
@@ -290,7 +290,7 @@ export function schemaToFields(
         ...fieldBase,
         ...fieldCustom,
         default: typeof fieldDefault === 'boolean' ? fieldDefault : undefined,
-        widget: 'boolean',
+        widget: 'boolean'
       };
       fields.push(field);
       continue;
@@ -306,7 +306,7 @@ export function schemaToFields(
         dropdown_threshold: 0,
         ...fieldCustom,
         default: typeof fieldDefault === 'string' ? fieldDefault : undefined,
-        widget: 'select',
+        widget: 'select'
       };
       fields.push(field);
       continue;
@@ -328,7 +328,7 @@ export function schemaToFields(
     console.log('unhandled field', {
       fieldName: shapeName,
       field: shapeBaseType,
-      description: shapeBaseType.description,
+      description: shapeBaseType.description
     });
   }
 

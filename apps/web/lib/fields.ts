@@ -23,7 +23,7 @@ function getRepoPath(filePath: string): string {
 const gitCache: Record<string, GitFileInfo | null> = {};
 
 export async function getUpdatedBy(
-  filePath: string,
+  filePath: string
 ): Promise<GitFileInfo | null> {
   if (gitCache[filePath] === undefined) {
     gitCache[filePath] = (await getGitFileInfo(baseDir, filePath)) ?? null;
@@ -71,7 +71,7 @@ function stripIndex(path: string) {
 
 const collectionPaths: Record<string, string> | undefined = collections?.reduce(
   (p, v) => (v.path ? Object.assign(p, { [v.name]: v.path }) : p),
-  {},
+  {}
 );
 
 export function getCollectionBasePath(collectionName: string) {
@@ -84,7 +84,7 @@ export function getCollectionBasePath(collectionName: string) {
 export function getPermalink(
   collectionName: string,
   path: string,
-  customSlug?: string,
+  customSlug?: string
 ) {
   const basePath = getCollectionBasePath(collectionName);
   const slugPath = isEmpty(customSlug)
@@ -118,7 +118,7 @@ export function getContentPath(root: string, path: string) {
 export function getSlugFromPath(
   collectionName: string,
   contentPath: string,
-  userSlug?: string,
+  userSlug?: string
 ) {
   // post/foo -> foo
   // post/bar/index.md -> bar
@@ -180,11 +180,9 @@ export function createTaxonomyTransform(taxonomyName: string) {
       slug,
       permalink,
       publishedAt: getZonedDate(
-        data.date ?? updatedBy?.latestDate ?? new Date(),
+        data.date ?? updatedBy?.latestDate ?? new Date()
       ).toISOString(),
-      updatedAt: getZonedDate(
-        updatedBy?.latestDate ?? new Date(),
-      ).toISOString(),
+      updatedAt: getZonedDate(updatedBy?.latestDate ?? new Date()).toISOString()
     };
   };
 }
@@ -192,7 +190,7 @@ export function createTaxonomyTransform(taxonomyName: string) {
 export async function getTaxonomy(
   root: string,
   collectionName: string,
-  terms?: string[],
+  terms?: string[]
 ) {
   if (!terms) {
     return;
@@ -208,8 +206,8 @@ export async function getTaxonomy(
           count: {
             total: 0,
             post: 0,
-            page: 0,
-          },
+            page: 0
+          }
         },
         {
           path: [],
@@ -217,11 +215,11 @@ export async function getTaxonomy(
             content: '',
             path: `${root}/${collectionName}/${getSlug(term.replaceAll('/', '_'))}`,
             config: {
-              root,
-            },
-          },
-        },
+              root
+            }
+          }
+        }
       );
-    }),
+    })
   );
 }

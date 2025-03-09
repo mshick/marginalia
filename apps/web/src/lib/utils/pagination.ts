@@ -3,7 +3,7 @@ import { getSingle, isNumericString } from './types';
 export function getPagination(
   params: { page?: string | string[] },
   pagination: { per_page: number },
-  count: number,
+  count: number
 ) {
   const { per_page: perPage } = pagination;
   const currentPage = isNumericString(getSingle(params.page))
@@ -16,6 +16,6 @@ export function getPagination(
     currentPage,
     perPage,
     pageOffset,
-    totalPages,
+    totalPages
   };
 }

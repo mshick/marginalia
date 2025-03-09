@@ -4,7 +4,7 @@ import {
   TbBrandGithub,
   TbBrandLinkedin,
   TbBrandWhatsapp,
-  TbBrandX,
+  TbBrandX
 } from 'react-icons/tb';
 import { SignalMessengerIcon } from '#/components/SignalMessengerIcon';
 import type { Options } from '#/content';
@@ -17,7 +17,7 @@ const socialIcons: Record<Options['socials'][0]['icon'], IconType> = {
   x: TbBrandX,
   signal: SignalMessengerIcon,
   whatsapp: TbBrandWhatsapp,
-  email: TbAt,
+  email: TbAt
 };
 
 export type SiteFooterProps = {
@@ -41,7 +41,7 @@ export function SiteFooter({ repoUrl, socials }: SiteFooterProps) {
                 key={social.name}
                 className={classNames(
                   idx !== 0 ? 'ml-2' : '',
-                  'group py-5 overflow-visible',
+                  'group py-5 overflow-visible'
                 )}
               >
                 <a

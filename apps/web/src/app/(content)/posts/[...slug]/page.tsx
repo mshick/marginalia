@@ -23,19 +23,19 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: ServerProps<Params>,
+  props: ServerProps<Params>
 ): Promise<Metadata> {
   const params = await props.params;
   const post = getPost(params.slug.join('/'));
 
   if (!post) {
     return {
-      title: params.slug.join('/'),
+      title: params.slug.join('/')
     };
   }
 
   return {
-    title: post.title,
+    title: post.title
   };
 }
 
@@ -43,7 +43,7 @@ export default async function PostPage(props: ServerProps<Params>) {
   const params = await props.params;
   const post = getPost(params.slug.join('/'), undefined, [
     'tags',
-    'categories',
+    'categories'
   ]);
 
   if (!post) {

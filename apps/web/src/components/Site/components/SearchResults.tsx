@@ -1,6 +1,6 @@
 import {
   DocumentMagnifyingGlassIcon,
-  ExclamationTriangleIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import type { searchStoreFields } from '~/lib/env';
 import { DocumentList } from '#/components/Document/DocumentList';
@@ -24,7 +24,7 @@ export function SearchResults({
   isLoading,
   isInitial,
   items,
-  onClickLink,
+  onClickLink
 }: SearchResultsProps) {
   return (
     <div className="flex">

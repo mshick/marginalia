@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const data = {
     code: searchParams.get('code'),
     client_id: githubClientId,
-    client_secret: githubClientSecret,
+    client_secret: githubClientSecret
   };
 
   try {
@@ -15,9 +15,9 @@ export async function GET(request: Request) {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     });
 
     if (!response.ok) {
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
 
     const content = {
       token: body.access_token,
-      provider: 'github',
+      provider: 'github'
     };
 
     const script = `
@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     `;
 
     return new Response(script, {
-      headers: { 'Content-Type': 'text/html' },
+      headers: { 'Content-Type': 'text/html' }
     });
   } catch (err) {
     console.log(err);

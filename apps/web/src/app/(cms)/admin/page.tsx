@@ -3,7 +3,7 @@ import Script from 'next/script';
 import prettierConfig from '~/.prettierrc.json';
 
 export const metadata: Metadata = {
-  robots: 'noindex',
+  robots: 'noindex'
 };
 
 export default function AdminPage() {

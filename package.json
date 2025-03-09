@@ -4,7 +4,9 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "lint": "pnpm lint:code && pnpm lint:md",
+    "lint:code": "biome check",
+    "lint:md": "prettier \"**/*.{md,mdx}\" --check",
     "format": "npm run format:code && npm run format:md",
     "format:code": "biome check --fix",
     "format:md": "prettier --write \"**/*.{md,mdx}\"",

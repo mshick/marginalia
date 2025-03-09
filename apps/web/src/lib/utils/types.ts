@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 import { isElement } from 'react-is';
 
 export function isReactElement(
-  maybeElement: unknown,
+  maybeElement: unknown
 ): maybeElement is ReactElement {
   return isElement(maybeElement);
 }

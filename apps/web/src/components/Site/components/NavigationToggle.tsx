@@ -11,7 +11,7 @@ export function NavigationToggle({
   altText,
   isOpen,
   onClose,
-  onOpen,
+  onOpen
 }: NavigationToggleProps) {
   return (
     <button

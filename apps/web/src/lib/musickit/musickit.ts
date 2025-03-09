@@ -26,27 +26,27 @@ type GetRecentlyPlayedTracksParams = PaginationParams & {
 
 function getRecentlyPlayedTracks({
   developerToken,
-  musicUserToken,
+  musicUserToken
 }: RequestContext) {
   return async ({ limit, offset, types }: GetRecentlyPlayedTracksParams) => {
     const searchParams = new URLSearchParams({
       limit: String(limit ?? 10),
       offset: String(offset ?? 0),
-      types: types ?? 'songs',
+      types: types ?? 'songs'
       // ...params
     });
 
     const url = new URL(
       `/v1/me/recent/played/tracks?${searchParams.toString()}`,
-      baseUrl,
+      baseUrl
     );
 
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${developerToken}`,
-        'Music-User-Token': musicUserToken,
-      },
+        'Music-User-Token': musicUserToken
+      }
     });
 
     const result = (await response.json()) as PaginatedResult;
@@ -55,8 +55,8 @@ function getRecentlyPlayedTracks({
       ...result,
       next: result?.next?.replace(
         '/v1/me/recent/played/tracks',
-        '/api/music/recent-tracks',
-      ),
+        '/api/music/recent-tracks'
+      )
     };
   };
 }
@@ -65,33 +65,33 @@ type GetHeavyRotationContentParams = PaginationParams;
 
 function getHeavyRotationContent({
   developerToken,
-  musicUserToken,
+  musicUserToken
 }: RequestContext) {
   return async ({ limit, offset }: GetHeavyRotationContentParams) => {
     const searchParams = new URLSearchParams({
       limit: String(limit ?? 10),
-      offset: String(offset ?? 0),
+      offset: String(offset ?? 0)
       // ...params
     });
 
     const url = new URL(
       `/v1/me/history/heavy-rotation?${searchParams.toString()}`,
-      baseUrl,
+      baseUrl
     );
 
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${developerToken}`,
-        'Music-User-Token': musicUserToken,
-      },
+        'Music-User-Token': musicUserToken
+      }
     });
 
     const result = (await response.json()) as PaginatedResult;
 
     return {
       ...result,
-      next: result?.next?.replace('/v1/me/history/', '/api/music/'),
+      next: result?.next?.replace('/v1/me/history/', '/api/music/')
     };
   };
 }
@@ -100,40 +100,40 @@ type GetRecentlyAddedResourcesParams = PaginationParams;
 
 function getRecentlyAddedResources({
   developerToken,
-  musicUserToken,
+  musicUserToken
 }: RequestContext) {
   return async ({ limit, offset }: GetRecentlyAddedResourcesParams) => {
     const searchParams = new URLSearchParams({
       limit: String(limit ?? 10),
-      offset: String(offset ?? 0),
+      offset: String(offset ?? 0)
       // ...params
     });
 
     const url = new URL(
       `/v1/me/library/recently-added?${searchParams.toString()}`,
-      baseUrl,
+      baseUrl
     );
 
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${developerToken}`,
-        'Music-User-Token': musicUserToken,
-      },
+        'Music-User-Token': musicUserToken
+      }
     });
 
     const result = (await response.json()) as PaginatedResult;
 
     return {
       ...result,
-      next: result?.next?.replace('/v1/me/library/', '/api/music/'),
+      next: result?.next?.replace('/v1/me/library/', '/api/music/')
     };
   };
 }
 
 function renewMusicUserToken({
   developerToken,
-  musicUserToken,
+  musicUserToken
 }: RequestContext) {
   return async (): Promise<{
     'music-token': string;
@@ -146,8 +146,8 @@ function renewMusicUserToken({
         Authorization: `Bearer ${developerToken}`,
         'X-Apple-Music-User-Token': musicUserToken,
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+        Accept: 'application/json'
+      }
     });
 
     return response.json();
@@ -166,13 +166,13 @@ export async function createMusicKit({
 
   const requestContext = {
     developerToken,
-    musicUserToken,
+    musicUserToken
   };
 
   return {
     getRecentlyPlayedTracks: getRecentlyPlayedTracks(requestContext),
     renewMusicUserToken: renewMusicUserToken(requestContext),
     getHeavyRotationContent: getHeavyRotationContent(requestContext),
-    getRecentlyAddedResources: getRecentlyAddedResources(requestContext),
+    getRecentlyAddedResources: getRecentlyAddedResources(requestContext)
   };
 }

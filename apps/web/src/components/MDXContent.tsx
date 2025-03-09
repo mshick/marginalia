@@ -4,7 +4,7 @@ import Image from 'next/image';
 import * as runtime from 'react/jsx-runtime';
 
 const sharedComponents = {
-  Image,
+  Image
 };
 
 const useMDXComponent = (code: string) => {

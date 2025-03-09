@@ -1,6 +1,6 @@
 export function keyBy<T extends Record<string, unknown>, K extends keyof T>(
   array: T[],
-  key: K,
+  key: K
 ) {
   const map = new Map<T[K], T>();
 
@@ -15,7 +15,7 @@ export function keyBy<T extends Record<string, unknown>, K extends keyof T>(
 
 export function pick<T extends object, K extends keyof T>(
   obj: T,
-  keys?: K[],
+  keys?: K[]
 ): { [P in K]: T[P] } {
   if (keys == null) {
     return obj;

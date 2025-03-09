@@ -1,25 +1,25 @@
-import rehypePresetTufted from "@marginalia/rehype";
-import remarkPresetTufted from "@marginalia/remark";
-import remarkGemoji from "remark-gemoji";
-import type { PluggableList } from "unified";
-import type { MarkdownOptions, Output } from "velite";
-import { rehypeCopyLinkedFiles } from "./assets";
-import { publicRootPath, uploadsBaseUrl, uploadsFolderPath } from "./env";
+import rehypePresetTufted from '@marginalia/rehype';
+import remarkPresetTufted from '@marginalia/remark';
+import remarkGemoji from 'remark-gemoji';
+import type { PluggableList } from 'unified';
+import type { MarkdownOptions, Output } from 'velite';
+import { rehypeCopyLinkedFiles } from './assets';
+import { publicRootPath, uploadsBaseUrl, uploadsFolderPath } from './env';
 
 export const output: Output = {
-  data: ".velite",
-  assets: "public/static",
-  base: "/static/",
-  name: "[name]-[hash:6].[ext]",
+  data: '.velite',
+  assets: 'public/static',
+  base: '/static/',
+  name: '[name]-[hash:6].[ext]',
   clean: true,
-  format: "esm",
+  format: 'esm'
 };
 
 export const rehypeTufted = rehypePresetTufted();
 
 export const remarkPlugins: PluggableList = [
   remarkGemoji,
-  remarkPresetTufted(),
+  remarkPresetTufted()
 ];
 
 export const rehypePlugins: PluggableList = [
@@ -30,11 +30,11 @@ export const rehypePlugins: PluggableList = [
       publicRootPath,
       uploads: {
         baseUrl: uploadsBaseUrl,
-        folderPath: uploadsFolderPath,
-      },
-    },
+        folderPath: uploadsFolderPath
+      }
+    }
   ],
-  rehypeTufted,
+  rehypeTufted
 ];
 
 export const markdownOptions: MarkdownOptions = {
@@ -44,5 +44,5 @@ export const markdownOptions: MarkdownOptions = {
   // @ts-expect-error Bad types
   rehypePlugins,
   removeComments: true,
-  copyLinkedFiles: false,
+  copyLinkedFiles: false
 };

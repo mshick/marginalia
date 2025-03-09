@@ -12,7 +12,7 @@ async function main() {
   const developerKey = await createDeveloperKey({
     privateKey,
     teamId: process.env.MUSICKIT_TEAM_ID,
-    keyId: process.env.MUSICKIT_KEY_ID,
+    keyId: process.env.MUSICKIT_KEY_ID
   });
 
   console.log(developerKey);
@@ -25,5 +25,5 @@ main().then(
   (e) => {
     console.error(e);
     process.exit(1);
-  },
+  }
 );

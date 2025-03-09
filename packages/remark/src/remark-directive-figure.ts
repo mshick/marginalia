@@ -1,18 +1,18 @@
-import { type Properties, h } from "hastscript";
-import type { BlockContent, DefinitionContent, Parent } from "mdast";
-import type { Transformer } from "unified";
-import { u } from "unist-builder";
-import { SKIP, visit } from "unist-util-visit";
+import { type Properties, h } from 'hastscript';
+import type { BlockContent, DefinitionContent, Parent } from 'mdast';
+import type { Transformer } from 'unified';
+import { u } from 'unist-builder';
+import { SKIP, visit } from 'unist-util-visit';
 import {
   isCodeNode,
   isContainerDirectiveNode,
   isImageNode,
   isLeafDirectiveNode,
   isParentNode,
-  isVideoNode,
-} from "./type-utils.js";
-import type { HastData } from "./types.js";
-import { contentTypePresenceReducer } from "./utils.js";
+  isVideoNode
+} from './type-utils.js';
+import type { HastData } from './types.js';
+import { contentTypePresenceReducer } from './utils.js';
 
 type GroupedChildren = Record<number, Array<BlockContent | DefinitionContent>>;
 
@@ -20,7 +20,7 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
   return (tree) => {
     visit(
       tree,
-      (node) => isContainerDirectiveNode(node) && node.name === "figure",
+      (node) => isContainerDirectiveNode(node) && node.name === 'figure',
       (node, index, parent) => {
         if (!isContainerDirectiveNode(node) || !isParentNode(parent)) {
           return [SKIP, index];
@@ -30,7 +30,7 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
 
         const contentTypesPresent = node.children.reduce(
           contentTypePresenceReducer,
-          {},
+          {}
         );
 
         const groupedCaptions = node.children.reduce<GroupedChildren>(
@@ -42,36 +42,36 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
               !isVideoNode(n)
             ) {
               return Object.assign(g, {
-                [currentGroupStart]: [...(g[currentGroupStart] ?? []), n],
+                [currentGroupStart]: [...(g[currentGroupStart] ?? []), n]
               });
             }
 
             currentGroupStart = i + 1;
             return g;
           },
-          {},
+          {}
         );
 
         const figureChildren = [...node.children];
 
         if (Object.entries(groupedCaptions).length > 0) {
           for (const [startIndex, captionNodes] of Object.entries(
-            groupedCaptions,
+            groupedCaptions
           )) {
             const figcaption = u(
-              "figcaption",
+              'figcaption',
               {
                 data: {
-                  hName: "figcaption" as const,
-                },
+                  hName: 'figcaption' as const
+                }
               },
-              captionNodes,
+              captionNodes
             );
 
             figureChildren.splice(
               Number(startIndex),
               figcaption.children.length,
-              figcaption,
+              figcaption
             );
           }
         }
@@ -80,12 +80,12 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
 
         const data: HastData = {
           hName: hast.tagName,
-          hProperties: hast.properties,
+          hProperties: hast.properties
         };
 
         node.data = {
           ...node.data,
-          ...data,
+          ...data
         };
 
         let className: (string | number)[] = [];
@@ -99,23 +99,23 @@ export default function remarkDirectiveFigure(): Transformer<Parent> {
         }
 
         const figure = u(
-          "figure",
+          'figure',
           {
             data: {
-              hName: "figure" as const,
+              hName: 'figure' as const,
               hProperties: {
                 ...hast.properties,
-                className: [...className, ...Object.keys(contentTypesPresent)],
-              },
-            },
+                className: [...className, ...Object.keys(contentTypesPresent)]
+              }
+            }
           },
-          figureChildren,
+          figureChildren
         );
 
         parent.children.splice(index ?? 0, 1, figure);
 
         return [SKIP, index];
-      },
+      }
     );
   };
 }

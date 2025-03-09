@@ -7,7 +7,7 @@ import {
   type MutableRefObject,
   useCallback,
   useRef,
-  useState,
+  useState
 } from 'react';
 import useSWR, { type Fetcher } from 'swr';
 import { Loading } from '#/components/Loading';
@@ -52,7 +52,7 @@ const fetcher: Fetcher<Track[], string> = (limit) =>
       if (!res.ok) {
         throw new FetchError('An error occurred while fetching the data.', {
           info: body,
-          status: res.status,
+          status: res.status
         });
       }
 
@@ -63,7 +63,7 @@ function ListeningToTrack({
   audio,
   onPlay,
   isActiveTrack,
-  track: { attributes },
+  track: { attributes }
 }: ListeningToTrackProps) {
   const { name, artistName, previews } = attributes;
   const [duration, setDuration] = useState(0);
@@ -141,8 +141,8 @@ export function ListeningToPopover({ limit }: ListeningToProps) {
     String(limit ?? 10),
     fetcher,
     {
-      refreshInterval: 60000,
-    },
+      refreshInterval: 60000
+    }
   );
 
   const [activeTrackId, setActiveTrackId] = useState<string | null>(null);
@@ -177,7 +177,7 @@ export function ListeningToPopover({ limit }: ListeningToProps) {
             <ChevronUpIcon
               className={classNames(
                 open ? 'rotate-180 transform' : '',
-                'h-5 w-5 text-black dark:text-white group-hover:text-white',
+                'h-5 w-5 text-black dark:text-white group-hover:text-white'
               )}
             />
           </Popover.Button>

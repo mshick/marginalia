@@ -9,7 +9,7 @@ import {
   getOptions,
   getPosts,
   getPostsCount,
-  sorters,
+  sorters
 } from '#/content';
 import { getPagination } from '#/lib/utils/pagination';
 import type { ServerProps } from '#/types/types';
@@ -20,7 +20,7 @@ export const revalidate = 60;
 
 export function generateMetadata(): Metadata {
   return {
-    title: HEADING,
+    title: HEADING
   };
 }
 
@@ -33,7 +33,7 @@ export default async function PostsPage(props: ServerProps) {
     searchParams,
     getOptions(['collections']).collections?.find((c) => c.name === 'post')
       ?.pagination ?? { per_page: 3 },
-    getPostsCount(),
+    getPostsCount()
   );
 
   const posts = getPosts(
@@ -42,7 +42,7 @@ export default async function PostsPage(props: ServerProps) {
     filters.none,
     sorters.publishedAtDesc,
     perPage,
-    pageOffset,
+    pageOffset
   );
 
   return (

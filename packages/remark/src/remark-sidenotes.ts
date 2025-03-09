@@ -1,26 +1,26 @@
-import { createHash } from "node:crypto";
+import { createHash } from 'node:crypto';
 import type {
   BlockContent,
   DefinitionContent,
   FootnoteDefinition,
   Parent,
-  PhrasingContent,
-} from "mdast";
-import type { Transformer } from "unified";
-import { u } from "unist-builder";
-import { select } from "unist-util-select";
-import { SKIP, visit } from "unist-util-visit";
+  PhrasingContent
+} from 'mdast';
+import type { Transformer } from 'unified';
+import { u } from 'unist-builder';
+import { select } from 'unist-util-select';
+import { SKIP, visit } from 'unist-util-visit';
 import {
   isFootnoteDefinitionNode,
   isFootnoteNode,
   isFootnoteReferenceNode,
   isParagraphNode,
-  isParentNode,
-} from "./type-utils.js";
-import type { Sidenote } from "./types.js";
+  isParentNode
+} from './type-utils.js';
+import type { Sidenote } from './types.js';
 
 // Need to use the unicode escape sequence for ⊕ / Circled Plus due to later sanitization
-const marginnoteLabel = "\u2295";
+const marginnoteLabel = '\u2295';
 
 function isNumericString(key: string): boolean {
   return !Number.isNaN(Number(key));
@@ -29,13 +29,13 @@ function isNumericString(key: string): boolean {
 function generateInputId(
   isMarginNote: boolean,
   identifier: string,
-  referenceCount: number,
+  referenceCount: number
 ) {
-  return `${isMarginNote ? "mn" : "sn"}-${identifier}-${referenceCount}`;
+  return `${isMarginNote ? 'mn' : 'sn'}-${identifier}-${referenceCount}`;
 }
 
 function createIdentifierHash(data: string) {
-  return createHash("sha1").update(data).digest("base64").replace("=", "");
+  return createHash('sha1').update(data).digest('base64').replace('=', '');
 }
 
 type GetReplacementParams = {
@@ -51,66 +51,66 @@ function getReplacement({
   notesAst,
   identifier,
   referenceCount,
-  marginnoteLabel,
+  marginnoteLabel
 }: GetReplacementParams): Sidenote {
   const inputId = generateInputId(isMarginNote, identifier, referenceCount);
-  const labelCls = `margin-toggle ${isMarginNote ? "" : "sidenote-number"}`;
-  const labelSymbol = isMarginNote ? marginnoteLabel : "";
-  const noteTypeCls = isMarginNote ? "marginnote" : "sidenote";
+  const labelCls = `margin-toggle ${isMarginNote ? '' : 'sidenote-number'}`;
+  const labelSymbol = isMarginNote ? marginnoteLabel : '';
+  const noteTypeCls = isMarginNote ? 'marginnote' : 'sidenote';
 
   return u(
-    "sidenote",
+    'sidenote',
     {
       data: {
-        hName: "span" as const,
+        hName: 'span' as const,
         hProperties: {
-          className: [noteTypeCls],
-        },
-      },
+          className: [noteTypeCls]
+        }
+      }
     },
     [
       u(
-        "sidenoteReference",
+        'sidenoteReference',
         {
           identifier,
           data: {
-            hName: "label" as const,
-            hProperties: { for: inputId, className: [labelCls] },
-          },
+            hName: 'label' as const,
+            hProperties: { for: inputId, className: [labelCls] }
+          }
         },
-        [u("text", labelSymbol)],
+        [u('text', labelSymbol)]
       ),
-      u("sidenoteToggle", {
+      u('sidenoteToggle', {
         identifier,
         data: {
-          hName: "input" as const,
+          hName: 'input' as const,
           hProperties: {
-            type: "checkbox",
+            type: 'checkbox',
             id: inputId,
-            className: ["margin-toggle"],
-          },
-        },
+            className: ['margin-toggle']
+          }
+        }
       }),
       u(
-        "sidenoteDefinition",
+        'sidenoteDefinition',
         {
           identifier,
           data: {
-            hName: "span" as const,
-            hProperties: { className: [`${noteTypeCls}-definition`] },
-          },
+            hName: 'span' as const,
+            hProperties: { className: [`${noteTypeCls}-definition`] }
+          }
         },
-        notesAst,
-      ),
-    ],
+        notesAst
+      )
+    ]
   );
 }
 
 export default function remarkSidenotes(
-  options = { marginnoteLabel },
+  options = { marginnoteLabel }
 ): Transformer<Parent> {
   const settings = {
-    marginnoteLabel: options.marginnoteLabel || marginnoteLabel,
+    marginnoteLabel: options.marginnoteLabel || marginnoteLabel
   };
 
   return (tree) => {
@@ -119,7 +119,7 @@ export default function remarkSidenotes(
     // "Regular" Sidenotes/Marginnotes consisting of a reference and a definition
     // Syntax for Sidenotes [^<number>] and somewhere else [^<number>]: <markdown>
     // Syntax for Marginnotes [^<string>] and somewhere else [^<string>]: <markdown>
-    visit(tree, { type: "footnoteReference" }, (node, index, parent) => {
+    visit(tree, { type: 'footnoteReference' }, (node, index, parent) => {
       if (!isFootnoteReferenceNode(node) || !isParentNode(parent)) {
         return SKIP;
       }
@@ -130,11 +130,11 @@ export default function remarkSidenotes(
 
       const target = select(
         `footnoteDefinition[identifier='${identifier}']`,
-        tree,
+        tree
       ) as FootnoteDefinition | undefined;
 
       if (!target) {
-        throw new Error("No coresponding note found");
+        throw new Error('No coresponding note found');
       }
 
       const isMarginNote = !isNumericString(identifier);
@@ -148,7 +148,7 @@ export default function remarkSidenotes(
         notesAst,
         identifier,
         referenceCount,
-        ...settings,
+        ...settings
       });
 
       parent.children.splice(index ?? 0, 1, replacement);
@@ -159,7 +159,7 @@ export default function remarkSidenotes(
     // "Inline" Sidenotes which do not have two parts
     // Syntax: ^[<markdown>]
     // Requires use of deprecated remark-footnotes, or some other plugin supporting inline notes
-    visit(tree, { type: "footnote" }, (node, index, parent) => {
+    visit(tree, { type: 'footnote' }, (node, index, parent) => {
       if (!isFootnoteNode(node) || !isParentNode(parent)) {
         return;
       }
@@ -173,14 +173,14 @@ export default function remarkSidenotes(
         notesAst,
         identifier,
         referenceCount,
-        ...settings,
+        ...settings
       });
 
       parent.children.splice(index ?? 0, 1, replacement);
     });
 
     // These are suppressed, since the reference needs to pull this info in context
-    visit(tree, { type: "footnoteDefinition" }, (node, index, parent) => {
+    visit(tree, { type: 'footnoteDefinition' }, (node, index, parent) => {
       if (!isFootnoteDefinitionNode(node) || !isParentNode(parent)) {
         return SKIP;
       }

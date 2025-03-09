@@ -6,7 +6,7 @@ import {
   type Output,
   getImageMetadata,
   isRelativePath,
-  processAsset,
+  processAsset
 } from 'velite';
 import type { VFile } from 'vfile';
 import { createIsUploadsPath } from './util';
@@ -28,7 +28,7 @@ export async function linkToAsset({
   base,
   publicRootPath,
   allowRemoteUrl,
-  isImage,
+  isImage
 }: LinkToAssetParams) {
   const decoded = decodeURI(uri);
 
@@ -38,7 +38,7 @@ export async function linkToAsset({
       join(process.cwd(), publicRootPath),
       name,
       base,
-      isImage ? true : undefined,
+      isImage ? true : undefined
     );
   }
 
@@ -64,7 +64,7 @@ export async function linkToAsset({
     path,
     name,
     base,
-    isImage ? true : undefined,
+    isImage ? true : undefined
   );
 }
 
@@ -117,7 +117,7 @@ export const rehypeCopyLinkedFiles =
           base: options.base,
           publicRootPath,
           allowRemoteUrl: true,
-          isImage,
+          isImage
         });
 
         if (!urlOrImage) {
@@ -150,6 +150,6 @@ export const rehypeCopyLinkedFiles =
             node.properties.width = String(image.width);
           }
         }
-      }),
+      })
     );
   };

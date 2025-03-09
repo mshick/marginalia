@@ -13,9 +13,9 @@ const miniSearch = MiniSearch.loadJSON<StoredDocument>(
     storeFields: [...searchStoreFields],
     searchOptions: {
       boost: searchStoreBoost,
-      prefix: true,
-    },
-  },
+      prefix: true
+    }
+  }
 );
 
 export const runtime = 'edge';
@@ -33,7 +33,7 @@ export function GET(req: NextRequest) {
   return NextResponse.json(
     { data },
     {
-      status: 200,
-    },
+      status: 200
+    }
   );
 }

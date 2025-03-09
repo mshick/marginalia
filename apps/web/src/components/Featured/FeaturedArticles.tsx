@@ -11,7 +11,7 @@ export type FeaturedArticlesProps = {
 };
 
 export function FeaturedArticles({
-  documents,
+  documents
 }: PropsWithCallableChildren<FeaturedArticlesProps, Document>) {
   return (
     <ul className="flex flex-col m-0 p-0 list-none">
@@ -23,6 +23,7 @@ export function FeaturedArticles({
               {excerpt && (
                 <div
                   className="-mt-2 prose-tufte"
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                   dangerouslySetInnerHTML={{ __html: excerpt }}
                 />
               )}

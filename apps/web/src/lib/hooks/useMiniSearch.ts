@@ -6,7 +6,7 @@ import {
   type SetStateAction,
   useEffect,
   useRef,
-  useState,
+  useState
 } from 'react';
 import { searchFields } from '~/lib/env';
 import type { Document } from '#/content';
@@ -22,10 +22,10 @@ export type MiniSearchHookResults<T> = {
 
 export function useMiniSearch<
   F extends keyof Document,
-  StoredDocument = Pick<Document, F>,
+  StoredDocument = Pick<Document, F>
 >(
   searchStoreFields: F[],
-  searchOptions: SearchOptions,
+  searchOptions: SearchOptions
 ): [Dispatch<SetStateAction<string>>, MiniSearchHookResults<StoredDocument>] {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<(SearchResult & StoredDocument)[]>([]);
@@ -46,8 +46,8 @@ export function useMiniSearch<
         {
           fields: [...searchFields],
           storeFields: [...searchStoreFields],
-          searchOptions,
-        },
+          searchOptions
+        }
       );
       setIsReady(true);
     }

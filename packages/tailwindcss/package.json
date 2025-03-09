@@ -10,13 +10,13 @@
     }
   },
   "main": "src/index.ts",
+  "sideEffects": false,
   "files": ["dist", "LICENSE", "README.md"],
   "scripts": {
     "build": "tsup --dts",
     "build:fast": "tsup src",
     "clean": "del-cli dist .turbo",
     "dev": "pnpm build:fast --watch",
-    "lint": "biome check",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {

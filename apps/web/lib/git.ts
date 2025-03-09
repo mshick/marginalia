@@ -9,7 +9,7 @@ export type GitFileInfo = {
 
 export async function getGitFileInfo(
   repoFolder: string,
-  filePath: string,
+  filePath: string
 ): Promise<GitFileInfo | undefined> {
   const gitRepo = git(repoFolder);
 
@@ -19,8 +19,8 @@ export async function getGitFileInfo(
     format: {
       date: '%aI',
       authorName: '%an',
-      authorEmail: '%ae',
-    },
+      authorEmail: '%ae'
+    }
   };
 
   try {
@@ -33,7 +33,7 @@ export async function getGitFileInfo(
     return {
       latestAuthorName: latest.authorName,
       latestAuthorEmail: latest.authorEmail,
-      latestDate: latest.date,
+      latestDate: latest.date
     };
   } catch (e) {
     logger.debug(e, `${filePath} not found in repo`);

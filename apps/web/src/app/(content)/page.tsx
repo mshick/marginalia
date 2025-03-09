@@ -25,7 +25,7 @@ export default function HomePage() {
   const posts = getPosts(
     ['permalink', 'title', 'excerpt', 'excerptHtml', 'publishedAt', 'featured'],
     ['tags'],
-    (p) => p.featured,
+    (p) => p.featured
   );
 
   const bodyComponents = {
@@ -37,7 +37,7 @@ export default function HomePage() {
         href={postsLink?.path ?? '/posts/'}
         documents={posts}
       />
-    ),
+    )
   };
 
   return (

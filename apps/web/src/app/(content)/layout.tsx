@@ -1,7 +1,7 @@
 import { SiteFooter } from '#/components/Site/SiteFooter';
 import { SiteHeader } from '#/components/Site/SiteHeader';
 import { getOptions } from '#/content';
-import { plexMono } from '#/styles/fonts';
+import { IBMPlexMono } from '#/styles/fonts';
 import '#/styles/globals.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -13,33 +13,33 @@ const { title, url, description } = getOptions(['title', 'url', 'description']);
 export const metadata: Metadata = {
   title: {
     default: title,
-    template: `%s - ${title}`,
+    template: `%s - ${title}`
   },
   description: description,
   alternates: {
-    canonical: url,
+    canonical: url
   },
   metadataBase: new URL(url),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: title,
-  },
+    siteName: title
+  }
 };
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function ContentLayout({ children }: any) {
   const { name, links, repo, socials } = getOptions([
     'name',
     'links',
     'repo',
-    'socials',
+    'socials'
   ]);
 
   const navigationItems = links.filter((link) => link.type === 'navigation');
 
   return (
     <div
-      className={`${plexMono.variable} tufted font-primary h-svh mx-auto max-w-3xl px-8 flex flex-col`}
+      className={`${IBMPlexMono.variable} tufted font-primary h-svh mx-auto max-w-3xl min-w-80 px-8 flex flex-col`}
     >
       <ThemeProvider attribute="class">
         <SiteHeader siteName={name} navigationItems={navigationItems} />

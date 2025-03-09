@@ -21,7 +21,7 @@ export function DocumentListItem({
   excerpt,
   permalink,
   publishedAt,
-  onClickLink,
+  onClickLink
 }: DocumentListItemProps) {
   onClickLink =
     onClickLink ??
@@ -44,6 +44,7 @@ export function DocumentListItem({
       {excerpt && (
         <div
           className="block prose text-gray-700 dark:text-gray-100"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
           dangerouslySetInnerHTML={{ __html: excerpt }}
         />
       )}

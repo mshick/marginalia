@@ -14,15 +14,15 @@ export async function prepareTaxonomy(collections: Collections) {
   const docs = [...post.filter(getAvailable), ...page.filter(getAvailable)];
 
   const categoriesInDocs = new Set(
-    docs.flatMap((item) => item.categories ?? []),
+    docs.flatMap((item) => item.categories ?? [])
   );
 
   const categoriesFromDocs = await getTaxonomy(
     'content',
     'categories',
     Array.from(categoriesInDocs).filter(
-      (i) => category.find((j) => j.name === i) == null,
-    ),
+      (i) => category.find((j) => j.name === i) == null
+    )
   );
 
   if (categoriesFromDocs) {
@@ -40,7 +40,7 @@ export async function prepareTaxonomy(collections: Collections) {
   const tagsFromDocs = await getTaxonomy(
     'content',
     'tags',
-    Array.from(tagsInDocs).filter((i) => tag.find((j) => j.name === i) == null),
+    Array.from(tagsInDocs).filter((i) => tag.find((j) => j.name === i) == null)
   );
 
   if (tagsFromDocs) {
@@ -55,6 +55,6 @@ export async function prepareTaxonomy(collections: Collections) {
 
   return {
     tagCount: tag.length,
-    categoryCount: category.length,
+    categoryCount: category.length
   };
 }

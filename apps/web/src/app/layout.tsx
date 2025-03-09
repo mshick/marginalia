@@ -7,24 +7,24 @@ const { title, url, description, locale } = getOptions([
   'title',
   'url',
   'description',
-  'locale',
+  'locale'
 ]);
 
 export const metadata: Metadata = {
   title: {
     default: title,
-    template: `%s - ${title}`,
+    template: `%s - ${title}`
   },
   description: description,
   alternates: {
-    canonical: url,
+    canonical: url
   },
   metadataBase: new URL(url),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: title,
-  },
+    siteName: title
+  }
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

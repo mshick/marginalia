@@ -46,16 +46,16 @@ export const searchFields = [
   'content',
   'excerpt',
   'tags',
-  'categories',
+  'categories'
 ] as const;
 export const searchStoreFields = [
   'title',
   'excerpt',
   'permalink',
-  'publishedAt',
+  'publishedAt'
 ] as const;
 export const searchStoreBoost = {
   title: 2,
   tags: 2,
-  excerpt: 1.5,
+  excerpt: 1.5
 };

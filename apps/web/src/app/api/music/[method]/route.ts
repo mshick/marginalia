@@ -22,11 +22,11 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
   if (!musickitMusicUserToken || !musickitTeamId || !musickitKeyId) {
     return NextResponse.json(
       {
-        errors: [{ title: 'Not configured' }],
+        errors: [{ title: 'Not configured' }]
       },
       {
-        status: 500,
-      },
+        status: 500
+      }
     );
   }
 
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
     musicUserToken: musickitMusicUserToken,
     privateKey: musickitPrivateKey,
     teamId: musickitTeamId,
-    keyId: musickitKeyId,
+    keyId: musickitKeyId
   });
 
   let results: Record<string, unknown>;
@@ -51,8 +51,8 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
           status = 500;
           results = {
             errors: [
-              { title: results.error, message: results.error_description },
-            ],
+              { title: results.error, message: results.error_description }
+            ]
           };
         }
       } else {
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
 
     case 'recent-tracks':
       results = await musicKit.getRecentlyPlayedTracks(
-        Object.fromEntries(searchParams),
+        Object.fromEntries(searchParams)
       );
       if (results.errors) {
         status = 500;
@@ -72,7 +72,7 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
 
     case 'heavy-rotation':
       results = await musicKit.getHeavyRotationContent(
-        Object.fromEntries(searchParams),
+        Object.fromEntries(searchParams)
       );
       if (results.errors) {
         status = 500;
@@ -81,7 +81,7 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
 
     case 'recently-added':
       results = await musicKit.getRecentlyAddedResources(
-        Object.fromEntries(searchParams),
+        Object.fromEntries(searchParams)
       );
       if (results.errors) {
         status = 500;
@@ -90,12 +90,12 @@ export async function GET(req: NextRequest, segmentData: SegmentData<Params>) {
 
     default:
       results = {
-        errors: [{ title: 'Not found' }],
+        errors: [{ title: 'Not found' }]
       };
       status = 404;
   }
 
   return NextResponse.json(results, {
-    status,
+    status
   });
 }

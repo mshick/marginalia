@@ -3,7 +3,7 @@ import {
   DATETIME_WIDGET,
   IMAGE_WIDGET,
   MARKDOWN_WIDGET,
-  RELATION_WIDGET,
+  RELATION_WIDGET
 } from './cms/constants';
 import { publicRootPath } from './env';
 import { DEFAULT_EXCERPT_LENGTH, excerptFn } from './excerpt';
@@ -16,7 +16,7 @@ import {
   getShareUrl,
   getSlugFromPath,
   getUpdatedBy,
-  getZonedDate,
+  getZonedDate
 } from './fields';
 import { image } from './image';
 import { markdownOptions } from './velite';
@@ -28,12 +28,12 @@ const cover = s.object({
     .optional()
     .describe(
       JSON.stringify({
-        widget: IMAGE_WIDGET,
-      }),
+        widget: IMAGE_WIDGET
+      })
     ),
   title: s.string().optional(),
   alt: s.string().optional(),
-  caption: s.string().optional(),
+  caption: s.string().optional()
 });
 
 const count = s
@@ -43,13 +43,13 @@ const count = s
 const meta = s.object({
   title: s.string().optional(),
   description: s.string().optional(),
-  keywords: s.array(s.string()).optional(),
+  keywords: s.array(s.string()).optional()
 });
 
 export const authors = s.object({
   name: s.string(),
   email: s.string().email(),
-  url: s.string().url(),
+  url: s.string().url()
 });
 
 export type Authors = z.infer<typeof authors>;
@@ -65,12 +65,12 @@ export const options = s.object({
   repo: s.object({
     provider: s.enum(['github']),
     name: s.string(),
-    branch: s.string().default('main'),
+    branch: s.string().default('main')
   }),
   author: s.object({
     name: s.string(),
     email: s.string().email(),
-    url: s.string().url(),
+    url: s.string().url()
   }),
   links: s.array(
     s.object({
@@ -78,8 +78,8 @@ export const options = s.object({
       path: s.string(),
       match: s.string(),
       type: s.enum(['navigation', 'footer', 'copyright']),
-      current: s.boolean().default(false),
-    }),
+      current: s.boolean().default(false)
+    })
   ),
   socials: s.array(
     s.object({
@@ -87,8 +87,8 @@ export const options = s.object({
       description: s.string().optional(),
       icon,
       link: s.string(),
-      image: s.image().optional(),
-    }),
+      image: s.image().optional()
+    })
   ),
   cms: s
     .object({
@@ -97,14 +97,14 @@ export const options = s.object({
       locale: s.string().optional(),
       editor: s
         .object({
-          preview: s.boolean().default(true),
+          preview: s.boolean().default(true)
         })
         .optional(),
       slug: s
         .object({
           encoding: s.enum(['unicode', 'ascii']),
           clean_accents: s.boolean().default(true),
-          sanitize_replacement: s.string().optional(),
+          sanitize_replacement: s.string().optional()
         })
         .optional(),
       i18n: s
@@ -112,10 +112,10 @@ export const options = s.object({
           structure: s.enum([
             'multiple_folders',
             'multiple_files',
-            'single_file',
+            'single_file'
           ]),
           locales: s.array(s.string()).optional(),
-          default_locale: s.string().optional(),
+          default_locale: s.string().optional()
         })
         .optional(),
       automatic_deployments: s.boolean().default(true),
@@ -124,16 +124,16 @@ export const options = s.object({
         json: s
           .object({
             indent_style: s.enum(['space', 'tab']),
-            indent_size: s.number(),
+            indent_size: s.number()
           })
           .optional(),
         yaml: s
           .object({
             quote: s.enum(['single', 'double']),
-            indent_size: s.number(),
+            indent_size: s.number()
           })
-          .optional(),
-      }),
+          .optional()
+      })
     })
     .describe('Configuration overrides for the CMS')
     .optional(),
@@ -144,7 +144,7 @@ export const options = s.object({
         path: s.string().optional(),
         pagination: s
           .object({
-            per_page: s.number(),
+            per_page: s.number()
           })
           .optional(),
         cms: s
@@ -153,7 +153,7 @@ export const options = s.object({
               .string()
               .optional()
               .describe(
-                '[Material Design icon name](https://fonts.google.com/icons?icon.set=Material+Symbols)',
+                '[Material Design icon name](https://fonts.google.com/icons?icon.set=Material+Symbols)'
               ),
             label: s.string().optional(),
             label_singular: s.string().optional(),
@@ -171,15 +171,15 @@ export const options = s.object({
                 fields: s.array(s.string()),
                 default: s.object({
                   field: s.string(),
-                  direction: s.enum(['ascending', 'descending']),
-                }),
+                  direction: s.enum(['ascending', 'descending'])
+                })
               })
-              .optional(),
+              .optional()
           })
-          .optional(),
-      }),
+          .optional()
+      })
     )
-    .optional(),
+    .optional()
 });
 
 export type Options = z.infer<typeof options>;
@@ -190,7 +190,7 @@ const baseTag = s.object({
   excerpt: s.markdown().optional().describe(MARKDOWN_WIDGET),
   date: s.isodate().describe(DATETIME_WIDGET).optional(),
   body: s.markdown(markdownOptions).describe(MARKDOWN_WIDGET),
-  count,
+  count
 });
 
 export const tag = baseTag.transform(createTaxonomyTransform('tag'));
@@ -204,7 +204,7 @@ export const baseCategory = s.object({
   excerpt: s.markdown().optional().describe(MARKDOWN_WIDGET),
   date: s.isodate().describe(DATETIME_WIDGET).optional(),
   body: s.markdown(markdownOptions).describe(MARKDOWN_WIDGET),
-  count,
+  count
 });
 
 export const category = baseTag.transform(createTaxonomyTransform('category'));
@@ -228,8 +228,8 @@ export const post = s
       .describe(
         JSON.stringify({
           widget: RELATION_WIDGET,
-          collection: 'author',
-        }),
+          collection: 'author'
+        })
       ),
     draft: s.boolean().optional().default(false),
     toc: s.toc(),
@@ -239,7 +239,7 @@ export const post = s
     related: s
       .array(s.string())
       .optional()
-      .describe(JSON.stringify({ widget: RELATION_WIDGET })),
+      .describe(JSON.stringify({ widget: RELATION_WIDGET }))
   })
   .transform(async (data, ctx) => {
     const { meta } = ctx;
@@ -254,7 +254,7 @@ export const post = s
       excerptHtml: excerptFn(
         { format: 'html', length: DEFAULT_EXCERPT_LENGTH + 40 },
         data.excerpt,
-        ctx,
+        ctx
       ),
       slug,
       permalink,
@@ -265,11 +265,9 @@ export const post = s
       updatedBy: updatedBy?.latestAuthorName ?? '',
       updatedByEmail: updatedBy?.latestAuthorEmail ?? '',
       publishedAt: getZonedDate(
-        data.date ?? updatedBy?.latestDate ?? new Date(),
+        data.date ?? updatedBy?.latestDate ?? new Date()
       ).toISOString(),
-      updatedAt: getZonedDate(
-        updatedBy?.latestDate ?? new Date(),
-      ).toISOString(),
+      updatedAt: getZonedDate(updatedBy?.latestDate ?? new Date()).toISOString()
     };
   });
 
@@ -288,7 +286,7 @@ export const page = s
     categories: s.array(s.string()).optional(),
     tags: s.array(s.string()).optional(),
     draft: s.boolean().default(false),
-    related: s.array(s.string()).optional(),
+    related: s.array(s.string()).optional()
   })
   .transform(async (data, ctx) => {
     const { meta } = ctx;
@@ -302,7 +300,7 @@ export const page = s
       excerptHtml: excerptFn(
         { format: 'html', length: DEFAULT_EXCERPT_LENGTH + 40 },
         data.excerpt,
-        ctx,
+        ctx
       ),
       slug,
       permalink,
@@ -310,11 +308,9 @@ export const page = s
       editUrl: getEditUrl(meta.path),
       historyUrl: getHistoryUrl(meta.path),
       publishedAt: getZonedDate(
-        updatedBy?.latestDate ?? new Date(),
+        updatedBy?.latestDate ?? new Date()
       ).toISOString(),
-      updatedAt: getZonedDate(
-        updatedBy?.latestDate ?? new Date(),
-      ).toISOString(),
+      updatedAt: getZonedDate(updatedBy?.latestDate ?? new Date()).toISOString()
     };
   });
 

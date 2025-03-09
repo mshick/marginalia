@@ -6,6 +6,6 @@ export function GET() {
   const siteUrl = getOptions(['url']).url;
   const url = isProduction ? siteUrl : devUrl;
   return NextResponse.redirect(
-    `${githubAuthUrl}&redirect_uri=${url}/oauth/callback`,
+    `${githubAuthUrl}&redirect_uri=${url}/oauth/callback`
   );
 }

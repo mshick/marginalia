@@ -10,7 +10,7 @@ export interface ErrorMessageProps {
 export const ErrorMessage = ({
   headline,
   subhead,
-  body,
+  body
 }: PropsWithChildren<ErrorMessageProps>) => {
   return (
     <>

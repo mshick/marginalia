@@ -9,16 +9,16 @@ const documentFields = [...new Set([...searchFields, ...searchStoreFields])];
 
 export async function generateSearchIndex(
   docs: (Page | Post)[],
-  { filePath }: { filePath: string },
+  { filePath }: { filePath: string }
 ) {
   const searchDocs = docs.map((doc) => ({
     id: doc.permalink,
-    ...pick(doc, documentFields),
+    ...pick(doc, documentFields)
   }));
 
   const miniSearch = new MiniSearch({
     fields: [...searchFields],
-    storeFields: [...searchStoreFields],
+    storeFields: [...searchStoreFields]
   });
 
   miniSearch.addAll(searchDocs);
@@ -28,11 +28,11 @@ export async function generateSearchIndex(
   await writeFile(
     filePath,
     // Double-stringify the index, a string is required for import
-    JSON.stringify({ searchIndex: JSON.stringify(miniSearch) }),
+    JSON.stringify({ searchIndex: JSON.stringify(miniSearch) })
   );
 
   return {
     documentCount: miniSearch.documentCount,
-    termCount: miniSearch.termCount,
+    termCount: miniSearch.termCount
   };
 }

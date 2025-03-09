@@ -42,7 +42,7 @@ export enum CmsCollectionFormatType {
   Frontmatter = 'frontmatter',
   YAMLFrontmatter = 'yaml-frontmatter',
   TOMLFrontmatter = 'toml-frontmatter',
-  JSONFrontmatter = 'json-frontmatter',
+  JSONFrontmatter = 'json-frontmatter'
 }
 
 export type CmsAuthScope = 'repo' | 'public_repo';

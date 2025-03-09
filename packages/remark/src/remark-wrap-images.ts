@@ -1,15 +1,15 @@
-import type { BlockContent, Parent } from "mdast";
-import type { Transformer } from "unified";
-import { u } from "unist-builder";
-import { CONTINUE, visit } from "unist-util-visit";
+import type { BlockContent, Parent } from 'mdast';
+import type { Transformer } from 'unified';
+import { u } from 'unist-builder';
+import { CONTINUE, visit } from 'unist-util-visit';
 import {
   isFigureNode,
   isImageNode,
   isParagraphNode,
   isParentNode,
-  isVideoNode,
-} from "./type-utils.js";
-import { contentTypePresenceReducer } from "./utils.js";
+  isVideoNode
+} from './type-utils.js';
+import { contentTypePresenceReducer } from './utils.js';
 
 export default function remmarkWrapImages(): Transformer<Parent> {
   return (tree) => {
@@ -35,27 +35,27 @@ export default function remmarkWrapImages(): Transformer<Parent> {
         ) {
           const contentTypesPresent = contentTypePresenceReducer(
             {},
-            node as BlockContent,
+            node as BlockContent
           );
 
           const figure = u(
-            "figure",
+            'figure',
             {
               data: {
-                hName: "figure" as const,
+                hName: 'figure' as const,
                 hProperties: {
-                  className: Object.keys(contentTypesPresent),
-                },
-              },
+                  className: Object.keys(contentTypesPresent)
+                }
+              }
             },
-            [node as BlockContent],
+            [node as BlockContent]
           );
 
           parent.children.splice(index ?? 0, 1, figure);
         }
 
         return CONTINUE;
-      },
+      }
     );
   };
 }

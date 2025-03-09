@@ -14,7 +14,7 @@ export function HomepageList({
   collectionName,
   heading,
   href,
-  documents,
+  documents
 }: HomepageListProps) {
   return (
     <section id={`list-${slug(heading)}`} className="not-prose py-3.5">

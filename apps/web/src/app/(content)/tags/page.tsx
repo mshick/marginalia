@@ -10,7 +10,7 @@ export const revalidate = 60;
 
 export function generateMetadata(): Metadata {
   return {
-    title: HEADING,
+    title: HEADING
   };
 }
 
@@ -22,7 +22,7 @@ export default function TagsPage() {
     'name',
     'excerpt',
     'publishedAt',
-    'count',
+    'count'
   ]);
 
   return (

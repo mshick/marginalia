@@ -7,6 +7,7 @@ export default function MusicPage() {
     <html
       suppressHydrationWarning
       lang="en"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
       dangerouslySetInnerHTML={{
         __html: `
 <!doctype html>
@@ -43,7 +44,7 @@ export default function MusicPage() {
       });
     </script>
   </body>
-</html>`,
+</html>`
       }}
     />
   );

@@ -9,12 +9,12 @@ type RemoveNull<T> = ExpandRecursively<{
 }>;
 
 export function makeSparse<T extends Record<string, unknown>>(
-  obj: T,
+  obj: T
 ): RemoveNull<T> {
   return JSON.parse(
     JSON.stringify(obj, (_key, value) => {
       return value === null || value === '' ? undefined : value;
-    }),
+    })
   );
 }
 

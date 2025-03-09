@@ -17,7 +17,7 @@ const fetcher: Fetcher<SearchDocument[], string> = (query) =>
       if (!res.ok) {
         throw new FetchError('An error occurred while fetching the data.', {
           info: body,
-          status: res.status,
+          status: res.status
         });
       }
 
@@ -32,14 +32,14 @@ export type SearchHookResults<T> = {
 
 export function useSearch(): [
   Dispatch<SetStateAction<string>>,
-  SearchHookResults<SearchDocument>,
+  SearchHookResults<SearchDocument>
 ] {
   const [query, setQuery] = useState('');
 
   const { data: results, isLoading } = useSWR(
     () => (query.length > 1 ? query : null),
     fetcher,
-    { fallbackData: [] },
+    { fallbackData: [] }
   );
 
   return [setQuery, { isLoading, query, results }];

@@ -41,10 +41,10 @@ export function excerptFn(
   {
     separator = 'more',
     length = DEFAULT_EXCERPT_LENGTH,
-    format = 'html',
+    format = 'html'
   }: ExcerptOptions = {},
   value?: string,
-  ctx?: ExcerptFnCtx,
+  ctx?: ExcerptFnCtx
 ) {
   const v =
     isEmpty(value) && ctx?.meta.content != null ? ctx?.meta.content : value;
@@ -64,7 +64,7 @@ export function excerptFn(
     const rawHast = raw(hast);
     const exHast = hastExcerpt(rawHast, {
       comment: separator,
-      maxSearchSize: 1024,
+      maxSearchSize: 1024
     });
 
     const output = exHast ?? truncate(rawHast, { size: length, ellipsis: '…' });

@@ -6,7 +6,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useState,
+  useState
 } from 'react';
 import { ThemeToggle } from '#/components/Site/components/ThemeToggle';
 import type { Options } from '#/content';
@@ -32,9 +32,9 @@ export function SiteHeader({ siteName, navigationItems }: SiteHeaderProps) {
     () =>
       navigationItems.map((item) => ({
         ...item,
-        current: Boolean(new RegExp(item.match).exec(pathname)),
+        current: Boolean(new RegExp(item.match).exec(pathname))
       })),
-    [pathname, navigationItems],
+    [pathname, navigationItems]
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -66,7 +66,7 @@ export function SiteHeader({ siteName, navigationItems }: SiteHeaderProps) {
       setQuery(searchQuery);
       replaceState(`?search=${encodeURIComponent(searchQuery)}`);
     },
-    [setQuery],
+    [setQuery]
   );
 
   const handleQueryFocus = useCallback(() => {

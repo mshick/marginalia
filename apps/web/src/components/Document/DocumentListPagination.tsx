@@ -12,7 +12,7 @@ function PageLink({
   page,
   path,
   label,
-  className,
+  className
 }: PropsWithChildren<{
   page?: number;
   path: string;
@@ -24,7 +24,7 @@ function PageLink({
       href={`${path}?page=${page}`}
       className={classNames(
         'inline-block group hover:bg-blue-700 hover:text-white no-underline select-none mr-4',
-        className,
+        className
       )}
       aria-label={label}
     >
@@ -34,7 +34,7 @@ function PageLink({
     <span
       className={classNames(
         'disabled inline-block group no-underline select-none mr-4 opacity-50',
-        className,
+        className
       )}
       aria-label={label}
       aria-disabled="true"
@@ -47,7 +47,7 @@ function PageLink({
 export function DocumentListPagination({
   path,
   currentPage,
-  totalPages,
+  totalPages
 }: DocumentListPaginationProps) {
   const prevPage = currentPage - 1;
   const nextPage = currentPage + 1;

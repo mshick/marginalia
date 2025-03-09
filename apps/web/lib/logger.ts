@@ -5,14 +5,14 @@ const config: LoggerOptions = {
   level: logLevel,
   base: {
     env: vercelEnv,
-    revision: commitSha,
-  },
+    revision: commitSha
+  }
 };
 
 if (isDevelopment) {
   config.transport = {
     target: 'pino-pretty',
-    options: { colorize: true },
+    options: { colorize: true }
   };
 }
 

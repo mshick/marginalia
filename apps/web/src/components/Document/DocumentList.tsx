@@ -6,10 +6,10 @@ export type DocumentListProps<ListItem> = {
 };
 
 export function DocumentList<
-  ListItem extends DocumentListItem = DocumentListItem,
+  ListItem extends DocumentListItem = DocumentListItem
 >({
   documents,
-  children,
+  children
 }: PropsWithCallableChildren<DocumentListProps<ListItem>, ListItem>) {
   return (
     <ul className="space-y-6">

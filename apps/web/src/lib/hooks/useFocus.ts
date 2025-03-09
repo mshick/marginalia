@@ -4,7 +4,7 @@ import { type MutableRefObject, useCallback, useRef } from 'react';
 
 export function useFocus(): [
   MutableRefObject<HTMLInputElement | null>,
-  () => void,
+  () => void
 ] {
   const htmlElRef = useRef<HTMLInputElement>(null);
 

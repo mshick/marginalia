@@ -9,10 +9,10 @@ import type {
   SidenoteDefinition,
   SidenoteReference,
   SidenoteToggle,
-  Video,
-} from "./types.js";
+  Video
+} from './types.js';
 
-declare module "mdast" {
+declare module 'mdast' {
   interface PhrasingContentMap {
     // newthought: Newthought
     sidenote: Sidenote;

@@ -6,5 +6,5 @@ import { Link } from '#/components/Link';
 export const components: MDXComponents = {
   a: Link,
   img: Image,
-  iframe: Iframe,
+  iframe: Iframe
 };

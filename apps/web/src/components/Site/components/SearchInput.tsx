@@ -2,7 +2,7 @@ import {
   type ChangeEventHandler,
   type FocusEventHandler,
   type ForwardedRef,
-  forwardRef,
+  forwardRef
 } from 'react';
 
 export type SearchInputProps = {
@@ -13,7 +13,7 @@ export type SearchInputProps = {
 
 export const SearchInput = forwardRef(function _SearchInput(
   { value, onChange, onFocus }: SearchInputProps,
-  ref: ForwardedRef<HTMLInputElement | null>,
+  ref: ForwardedRef<HTMLInputElement | null>
 ) {
   return (
     <div className="max-w-[90%] w-full">

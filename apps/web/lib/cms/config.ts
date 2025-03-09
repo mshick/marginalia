@@ -10,7 +10,7 @@ import { getSchemaBaseType, schemaToFields, sortSchemaFields } from './schema';
 import {
   type CmsCollection,
   CmsCollectionFormatType,
-  type CmsConfig,
+  type CmsConfig
 } from './types';
 import { makeSparse } from './util';
 
@@ -24,7 +24,7 @@ function getCollectionPath(pattern: string) {
 function addFolderCollectionFolders(
   cmsCollection: Partial<CmsCollection>,
   options: CreateCmsCollectionOptions,
-  pattern: string,
+  pattern: string
 ) {
   const { contentBasePath, uploads } = options;
   const collectionPath = getCollectionPath(pattern);
@@ -48,7 +48,7 @@ type CreateCmsCollectionOptions = {
 
 function createCmsCollection(
   options: CreateCmsCollectionOptions,
-  collection: Collection,
+  collection: Collection
 ): CmsCollection {
   const { name, path, cms } = options;
   const collectionBasePath = path ?? `/${name}`;
@@ -56,7 +56,7 @@ function createCmsCollection(
   const cmsCollection: Partial<CmsCollection> = {
     label: collection.name,
     name,
-    preview_path: join(collectionBasePath, '{{slug}}'),
+    preview_path: join(collectionBasePath, '{{slug}}')
   };
 
   const pattern = Array.isArray(collection.pattern)
@@ -74,8 +74,8 @@ function createCmsCollection(
         file: join(options.contentBasePath, ...getCollectionPath(pattern)),
         name: pattern,
         label: pattern,
-        fields: [],
-      },
+        fields: []
+      }
     ];
   } else {
     cmsCollection.type = 'folder_based_collection';
@@ -112,7 +112,7 @@ function createCmsCollection(
 function addCollectionFields(
   collection: Collection,
   cmsCollection: CmsCollection,
-  cmsCollections: CmsCollection[],
+  cmsCollections: CmsCollection[]
 ) {
   const schema = getSchemaBaseType(collection.schema, {});
 
@@ -122,11 +122,11 @@ function addCollectionFields(
 
   if ('files' in cmsCollection) {
     cmsCollection.files![0]!.fields = sortSchemaFields(
-      schemaToFields(schema, cmsCollection, cmsCollections),
+      schemaToFields(schema, cmsCollection, cmsCollections)
     );
   } else {
     cmsCollection.fields = sortSchemaFields(
-      schemaToFields(schema, cmsCollection, cmsCollections),
+      schemaToFields(schema, cmsCollection, cmsCollections)
     );
   }
 }
@@ -140,7 +140,7 @@ function getCmsCollections(
   context: { config: Config },
   options: Pick<Options, 'url' | 'repo' | 'collections' | 'cms'> & {
     uploads: UploadsOptions;
-  },
+  }
 ) {
   const { config } = context;
   const { uploads } = options;
@@ -157,7 +157,7 @@ function getCmsCollections(
 
     const coll = createCmsCollection(
       { ...overrides, name, uploads, contentBasePath },
-      collection,
+      collection
     );
 
     collections.push(coll);
@@ -191,7 +191,7 @@ function getCmsConfig(
   },
   options: Pick<Options, 'url' | 'repo' | 'cms'> & {
     uploads: UploadsOptions;
-  },
+  }
 ) {
   const { mode, build, collections } = context;
   const { uploads, url, repo, cms } = options;
@@ -206,7 +206,7 @@ function getCmsConfig(
       branch: repo.branch,
       site_domain: siteUrl.host,
       base_url: siteUrl.origin,
-      auth_endpoint: 'oauth',
+      auth_endpoint: 'oauth'
     },
     local_backend: mode === 'local',
     publish_mode: 'simple',
@@ -214,19 +214,19 @@ function getCmsConfig(
     public_folder: uploads.baseUrl,
     show_preview_links: true,
     editor: {
-      preview: true,
+      preview: true
     },
     collections,
     automatic_deployments: true,
     omit_empty_optional_fields: true,
     json: {
       indent_style: 'space',
-      indent_size: 2,
+      indent_size: 2
     },
     yaml: {
       quote: 'double',
-      indent_size: 2,
-    },
+      indent_size: 2
+    }
   };
 
   return merge(cmsConfig, cms ? makeSparse(cms) : undefined);
@@ -242,7 +242,7 @@ type GenerateCmsConfigOptions = Pick<
 
 export async function generateCmsConfig(
   config: Config,
-  options: GenerateCmsConfigOptions,
+  options: GenerateCmsConfigOptions
 ) {
   const { build } = options;
 
@@ -251,7 +251,7 @@ export async function generateCmsConfig(
   for (const mode of buildModes) {
     const cmsConfig = getCmsConfig(
       { mode, config, collections, build },
-      options,
+      options
     );
     const filePath = join(build.folderPath, mode, 'config.json');
 

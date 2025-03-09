@@ -8,7 +8,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["package-lock.json"]
+    "ignore": ["pnpm-lock.yaml"]
   },
   "formatter": {
     "enabled": true,
@@ -17,6 +17,12 @@
   },
   "organizeImports": {
     "enabled": true
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "none"
+    }
   },
   "linter": {
     "enabled": true,

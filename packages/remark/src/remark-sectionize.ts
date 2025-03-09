@@ -1,13 +1,13 @@
-import type { Parent } from "mdast";
-import type { Transformer } from "unified";
-import { u } from "unist-builder";
-import { findAfter } from "unist-util-find-after";
-import { SKIP, visitParents } from "unist-util-visit-parents";
+import type { Parent } from 'mdast';
+import type { Transformer } from 'unified';
+import { u } from 'unist-builder';
+import { findAfter } from 'unist-util-find-after';
+import { SKIP, visitParents } from 'unist-util-visit-parents';
 import {
   isExportNode,
   isHeadingNode,
-  isMdxjsFlowElement,
-} from "./type-utils.js";
+  isMdxjsFlowElement
+} from './type-utils.js';
 
 const minHeadingDepth = 2;
 const maxHeadingDepth = 6;
@@ -18,11 +18,11 @@ type RemarkSectionizeOptions = {
 };
 
 export default function remarkSectionize(
-  options: RemarkSectionizeOptions = { minHeadingDepth, maxHeadingDepth },
+  options: RemarkSectionizeOptions = { minHeadingDepth, maxHeadingDepth }
 ): Transformer<Parent> {
   const {
     maxHeadingDepth: maxDepth = maxHeadingDepth,
-    minHeadingDepth: minDepth = minHeadingDepth,
+    minHeadingDepth: minDepth = minHeadingDepth
   } = options;
 
   return (tree) => {
@@ -62,23 +62,23 @@ export default function remarkSectionize(
 
           const between = parent.children.slice(
             startIndex,
-            endIndex > 0 ? endIndex : undefined,
+            endIndex > 0 ? endIndex : undefined
           );
 
           const section = u(
-            "section",
+            'section',
             {
               data: {
-                hName: "section" as const,
-              },
+                hName: 'section' as const
+              }
             },
-            between,
+            between
           );
 
           parent.children.splice(startIndex, section.children.length, section);
 
           return SKIP;
-        },
+        }
       );
     }
   };
